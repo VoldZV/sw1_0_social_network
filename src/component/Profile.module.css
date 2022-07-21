@@ -1,0 +1,12 @@
+.appContent {
+    grid-area: c;
+    background-color: #fff47f;
+}
+
+.appContent img {
+    width: 100%;
+}
+
+.item {
+    color: red;
+}

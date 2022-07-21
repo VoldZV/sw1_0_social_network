@@ -1,0 +1,8 @@
+.appNav {
+    grid-area: n;
+    background-color: #7fe5ff;
+}
+
+.item {
+    color: #2f0a54;
+}

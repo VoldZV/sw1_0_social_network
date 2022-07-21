@@ -7,28 +7,6 @@
   grid-template-areas: "h h" "n c";
 }
 
-.appHeader {
-  grid-area: h;
-  background-color: aquamarine;
-}
-
-.appNav {
-  grid-area: n;
-  background-color: #7fe5ff;
-}
-
-.appContent {
-  grid-area: c;
-  background-color: #fff47f;
-}
-
-.appContent img {
-  width: 100%;
-}
-
-.app-wrapper header img {
-  width: 60px;
-}
 
 /*.App {*/
 /*  text-align: center;*/

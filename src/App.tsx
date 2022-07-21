@@ -1,8 +1,8 @@
 import React from 'react';
 import './App.css';
-import {Header} from "./component/Header";
-import {Navbar} from "./component/Navbar";
-import {Profile} from "./component/Profile";
+import {Header} from "./component/Header/Header";
+import {Navbar} from "./component/Navbar/Navbar";
+import {Profile} from "./component/Profile/Profile";
 // import {BrowserRouter, Route} from "react-router-dom";
 // import Technologies from "./component/technologies";
 

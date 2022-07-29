@@ -1,4 +1,9 @@
 .buttons {
     border-radius: 5px;
-    background-color: #00ffd0;
+    background-color: #c7c3a4;
+    color: #480620;
+}
+
+.form {
+    padding: 10px;
 }

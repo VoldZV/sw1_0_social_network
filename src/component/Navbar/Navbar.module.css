@@ -1,9 +1,16 @@
 .appNav {
     grid-area: n;
     background-color: #7fe5ff;
+    padding: 20px;
 }
 
-.item {
-    color: #2f0a54;
+.item a {
+    color: white;
+    text-decoration: none;
+    padding: 2px;
 }
 
+.item a.activeLink {
+    background-color: aquamarine;
+    border-radius: 5px;
+}

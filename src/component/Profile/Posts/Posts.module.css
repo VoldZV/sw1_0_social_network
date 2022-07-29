@@ -1,3 +1,8 @@
 .posts {
-background-color: #c2c0b2
+    background-color: #c2c0b2;
+    padding: 10px;
+}
+
+h3 {
+    margin: 10px;
 }

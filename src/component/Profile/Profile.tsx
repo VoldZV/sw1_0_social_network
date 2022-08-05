@@ -1,16 +1,24 @@
 import React from "react";
 import p from './Profile.module.css'
-import {Posts} from "./Posts/Posts";
+import {Posts, PostType} from "./Posts/Posts";
 import {CreatePost} from "./Posts/CreatePost/CreatePost";
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
 
 
-export const Profile = () => {
+type ProfileType = {
+    postsData: Array<PostType>
+}
+
+export const Profile = (props: ProfileType) => {
+
+
+
+
     return (
         <div className={p.appContent}>
             <ProfileInfo/>
             <CreatePost/>
-            <Posts/>
+            <Posts posts={props.postsData}/>
         </div>
     )
 }

@@ -1,6 +1,6 @@
 .dialogs {
     display: grid;
-    grid-template-columns: 2fr 10fr;
+    grid-template-columns: 1fr 7fr;
     padding: 20px;
 }
 
@@ -9,17 +9,36 @@
 }
 
 .dialogs_items_item {
+    display: flex;
+    align-items: center;
     padding: 2px;
-    border-radius: 5px;
+}
+.dialogs_items_item img{
+    display: block;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.dialogs_items_item a{
+    padding: 2px;
+    color: #7a7373;
+    text-decoration: none;
+    font-size: 20px;
 }
 
 .dialogs_items .active {
-    background-color: #cec985;
+    background-color: #b9ce85;
+    border-radius: 5px;
 }
 
 .dialogs_messages {
-    background-color: blue;
+    background-color: #9696fd;
     padding-left: 20px;
+
 }
 
 .dialogs_messages_message {

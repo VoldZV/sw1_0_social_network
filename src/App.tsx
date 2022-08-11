@@ -8,37 +8,34 @@ import {BrowserRouter, Route} from "react-router-dom";
 import {News} from "./component/News/News";
 import {Music} from "./component/Music/Music";
 import {Settings} from "./component/Settings/Setting";
-import {DialogItemType} from "./component/Dialogs/DialogItem/DialogItem";
-import {MessageType} from "./component/Dialogs/Message/Message";
-import {PostType} from "./component/Profile/Posts/Posts";
+import {addPost, DialogDataType, MessageType, PostType, stateType} from "./state/state";
 // import Technologies from "./component/technologies";
 
+
 type AppPropsType = {
-    dialogsData: Array<DialogItemType>
-    messagesData: Array<MessageType>
-    postsData: Array<PostType>
+    state: stateType
+    addPost: (postText: string)=>void
+    addMessage: (messageText: string)=>void
+
 }
 
 
 const App = (props: AppPropsType) => {
     return (
-        <BrowserRouter>
+
             <div className='app-wrapper'>
                 <Header/>
-                <Navbar/>
+                <Navbar sidebar={props.state.sideBar}/>
                 <div className="app-wrapper-appContent">
-                    <Route path='/profile' component={()=> <Profile postsData={props.postsData}/>}/>
-                    <Route path='/dialogs' render={()=> <Dialogs dialogsData={props.dialogsData} messagesData={props.messagesData}/>}/>
+                    <Route path='/profile' render={()=><Profile  addPost={props.addPost} profilePage={props.state.profilePage}/>}/>
+                    <Route path='/dialogs' render={()=> <Dialogs addMessage={props.addMessage} dialogsPage={props.state.dialogsPage}/>}/>
                     <Route path='/news' component={News}/>
                     <Route path='/music' component={Music}/>
                     <Route path='/settings' component={Settings}/>
-
                     {/*<Dialogs />*/}
                     {/*<Profile />*/}
                 </div>
-
             </div>
-        </BrowserRouter>
     );
 }
 

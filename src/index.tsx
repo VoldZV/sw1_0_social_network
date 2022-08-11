@@ -2,12 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import {DialogItemType} from "./component/Dialogs/DialogItem/DialogItem";
-import {MessageType} from "./component/Dialogs/Message/Message";
-import {PostType} from "./component/Profile/Posts/Posts";
+import {addMessage, addPost, DialogDataType, MessageType, PostType, state} from "./state/state";
+import {BrowserRouter} from "react-router-dom";
 
 //Dialogs - component
-let dialogsData: Array<DialogItemType> = [
+/*let dialogsData: Array<DialogItemType> = [
     {id: '1', name: 'Dima'},
     {id: '2', name: 'Ilya'},
     {id: '3', name: 'Pasha'},
@@ -31,13 +30,19 @@ let postsData: Array<PostType> = [
     {id: '1', message: "Hello, I\'m here", likesCount: 103},
     {id: '2', message: 'Oh, very glad to see you', likesCount: 2},
     {id: '3', message: 'Hi, my name is Frank',likesCount: 11},
-]
+]*/
 
 
 
 
 
 ReactDOM.render(
-    <App dialogsData={dialogsData} messagesData={messagesData} postsData={postsData}/>,
+
+    <BrowserRouter>
+        <App addPost={addPost}
+             addMessage={addMessage}
+             state={state}/>
+    </BrowserRouter>
+    ,
   document.getElementById('root')
 );

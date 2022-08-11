@@ -1,12 +1,27 @@
-import React from "react";
+import React, {RefObject} from "react";
 import CrPost from './CreatePost.module.css'
 
-export const CreatePost = () => {
+type CreatePostType = {
+    addPost: (postText: string)=>void
+}
+
+export const CreatePost = (props: CreatePostType) => {
+
+
+    const addRefPost: RefObject<HTMLTextAreaElement> =React.createRef()
+
+    const addPost = () => {
+        debugger
+        if (addRefPost.current) {
+            props.addPost(addRefPost.current.value)
+        }
+    }
+
     return (
         <div>
             <form action="#" className={CrPost.form}>
-                <input type="text"/>
-                <button className={CrPost.buttons}>ОПУБЛИКОВАТЬ</button>
+                <textarea ref={addRefPost}/>
+                <button onClick={addPost} className={CrPost.buttons}>ОПУБЛИКОВАТЬ</button>
                 <button className={CrPost.buttons}>ОЧИСТИТЬ ФОРМУ</button>
             </form>
 

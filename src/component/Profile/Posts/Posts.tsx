@@ -1,20 +1,14 @@
 import React from "react";
 import p from './Posts.module.css'
 import {Post} from "./Post/Post";
+import {PostType} from "../../../state/state";
 
 
 export type PostsType = {
     posts: Array<PostType>
 }
 
-export type PostType = {
-    id: string
-    message: string
-    likesCount: number
-}
-
 export const Posts = (props: PostsType) => {
-
 
     return (
         <div className={p.posts}>

@@ -6,6 +6,7 @@ import {DialogDataType} from "../../../state/state";
 
 
 export const  DialogItem = (props: DialogDataType) => {
+    console.log('Render DiaolgItem')
 
     return (
         <div className={d.dialogs_items_item}>

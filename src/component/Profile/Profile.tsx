@@ -3,7 +3,7 @@ import p from './Profile.module.css'
 import {Posts} from "./Posts/Posts";
 import {CreatePost} from "./Posts/CreatePost/CreatePost";
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
-import {PostType, profilePageType} from "../../state/state";
+import {profilePageType} from "../../state/state";
 
 
 type ProfileType = {

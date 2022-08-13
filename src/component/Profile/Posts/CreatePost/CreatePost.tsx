@@ -7,10 +7,9 @@ type CreatePostType = {
 
 export const CreatePost = (props: CreatePostType) => {
 
+    const addRefPost: RefObject<HTMLTextAreaElement> = React.createRef()
 
-    const addRefPost: RefObject<HTMLTextAreaElement> =React.createRef()
-
-    const addPost = () => {
+    const addPostHandler = () => {
         debugger
         if (addRefPost.current) {
             props.addPost(addRefPost.current.value)
@@ -21,10 +20,9 @@ export const CreatePost = (props: CreatePostType) => {
         <div>
             <form action="#" className={CrPost.form}>
                 <textarea ref={addRefPost}/>
-                <button onClick={addPost} className={CrPost.buttons}>ОПУБЛИКОВАТЬ</button>
+                <button onClick={addPostHandler} className={CrPost.buttons}>ОПУБЛИКОВАТЬ</button>
                 <button className={CrPost.buttons}>ОЧИСТИТЬ ФОРМУ</button>
             </form>
-
         </div>
     )
 }

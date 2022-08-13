@@ -47,8 +47,6 @@ export type sideBarType = {
     friends: []
 }
 
-
-
 // state
 
 export const state: stateType = {
@@ -66,8 +64,8 @@ export const state: stateType = {
             {id: '2', message: 'I`m good'},
             {id: '3', message: 'Hi man'},
             {id: '4', message: 'How are you'},
-            {id: '6', message: 'That`s good'},
-            {id: '7', message: 'Very well!'},
+            {id: '5', message: 'That`s good'},
+            {id: '6', message: 'Very well!'},
         ]
     },
     profilePage: {
@@ -82,12 +80,15 @@ export const state: stateType = {
     }
 }
 
+//Добавление сообщений и постов
 
 export const addPost = (postText: string) => {
     state.profilePage.postsData.push({id: '4', message: postText,likesCount: 0})
 }
 
+console.log({ state })
+
 export const addMessage = (messageText: string) => {
-    state.dialogsPage.messagesData.push({id: '8', message: messageText},
+    state.dialogsPage.messagesData.push({id: '7', message: messageText},
     )
 }

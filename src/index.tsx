@@ -5,6 +5,21 @@ import App from './App';
 import {addMessage, addPost, DialogDataType, MessageType, PostType, state} from "./state/state";
 import {BrowserRouter} from "react-router-dom";
 
+ReactDOM.render(
+    <BrowserRouter>
+        <App addPost={addPost}
+             addMessage={addMessage}
+             state={state}/>
+    </BrowserRouter>
+    ,
+  document.getElementById('root')
+);
+
+
+
+
+
+
 //Dialogs - component
 /*let dialogsData: Array<DialogItemType> = [
     {id: '1', name: 'Dima'},
@@ -31,18 +46,3 @@ let postsData: Array<PostType> = [
     {id: '2', message: 'Oh, very glad to see you', likesCount: 2},
     {id: '3', message: 'Hi, my name is Frank',likesCount: 11},
 ]*/
-
-
-
-
-
-ReactDOM.render(
-
-    <BrowserRouter>
-        <App addPost={addPost}
-             addMessage={addMessage}
-             state={state}/>
-    </BrowserRouter>
-    ,
-  document.getElementById('root')
-);

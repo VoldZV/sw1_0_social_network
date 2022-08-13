@@ -9,6 +9,8 @@ type NavbarType = {
 }
 
 export const Navbar = (props: NavbarType) => {
+    console.log('Render NAVBAR')
+
     return (
         <nav className={n.appNav}>
             <div className={n.item}><NavLink  to="/profile" activeClassName={n.activeLink}>Profile</NavLink></div>

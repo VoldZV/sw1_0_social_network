@@ -17,14 +17,17 @@ type DialogsPropsType = {
 
 
 export const Dialogs = (props: DialogsPropsType) => {
+    console.log('Render Dialogs')
 
     const addRefMessage: RefObject<HTMLTextAreaElement> =React.createRef()
 
-    const addMessage = () => {
+    const addMessageHandler = () => {
+        console.log('Add message')
         if (addRefMessage.current) {
             props.addMessage(addRefMessage.current.value)
         }
     }
+    console.log(props.dialogsPage.messagesData)
 
     return (
         <div className={d.dialogs}>
@@ -41,11 +44,10 @@ export const Dialogs = (props: DialogsPropsType) => {
                     <form action="#" className={CrPost.form}>
                         <textarea ref={addRefMessage}/>
                        <div>
-                           <button onClick={addMessage} className={CrPost.buttons}>send</button>
+                           <button onClick={addMessageHandler} className={CrPost.buttons}>send</button>
                            <button className={CrPost.buttons}>clear</button>
                        </div>
                     </form>
-
                 </div>
             </div>
         </div>

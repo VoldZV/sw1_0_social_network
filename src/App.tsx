@@ -19,7 +19,7 @@ type AppPropsType = {
 }
 
 
-const App = (props: AppPropsType) => {
+export const App = (props: AppPropsType) => {
     console.log('Render APP')
     return (
         <div className='app-wrapper'>

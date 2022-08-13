@@ -12,7 +12,7 @@ type ProfileType = {
 }
 
 export const Profile = (props: ProfileType) => {
-
+    console.log('Render Profile')
     return (
         <div className={p.appContent}>
             <ProfileInfo/>

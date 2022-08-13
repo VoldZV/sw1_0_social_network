@@ -1,9 +1,15 @@
-import React, {RefObject} from "react";
+import React, {ChangeEvent, RefObject} from "react";
 import d from './Dialogs.module.css'
 import {NavLink} from "react-router-dom";
 import {DialogItem} from "./DialogItem/DialogItem";
 import {Message} from "./Message/Message";
-import {DialogDataType, dialogsPageType, MessageType} from "../../state/state";
+import {
+    DialogDataType,
+    dialogsPageType,
+    MessageType,
+    setTextMessagePostValue,
+    textAriaMessageValue
+} from "../../state/state";
 import CrPost from "../Profile/Posts/CreatePost/CreatePost.module.css";
 
 
@@ -22,12 +28,13 @@ export const Dialogs = (props: DialogsPropsType) => {
     const addRefMessage: RefObject<HTMLTextAreaElement> =React.createRef()
 
     const addMessageHandler = () => {
-        console.log('Add message')
-        if (addRefMessage.current) {
-            props.addMessage(addRefMessage.current.value)
-        }
+            props.addMessage(textAriaMessageValue)
+            setTextMessagePostValue('')
     }
-    console.log(props.dialogsPage.messagesData)
+
+    const onChangeTextAriaHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        setTextMessagePostValue(e.currentTarget.value)
+    }
 
     return (
         <div className={d.dialogs}>
@@ -41,13 +48,11 @@ export const Dialogs = (props: DialogsPropsType) => {
                     return <Message key={i} id={message.id} message={message.message} />
                 })}
                 <div>
-                    <form action="#" className={CrPost.form}>
-                        <textarea ref={addRefMessage}/>
+                        <textarea onChange={onChangeTextAriaHandler} value={textAriaMessageValue} ref={addRefMessage}/>
                        <div>
                            <button onClick={addMessageHandler} className={CrPost.buttons}>send</button>
                            <button className={CrPost.buttons}>clear</button>
                        </div>
-                    </form>
                 </div>
             </div>
         </div>

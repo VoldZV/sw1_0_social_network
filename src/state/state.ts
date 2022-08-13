@@ -4,6 +4,8 @@
 
 // Общая для state
 
+import {rerenderEntireTree} from "./render";
+
 export type stateType = {
     dialogsPage: dialogsPageType
     profilePage: profilePageType
@@ -84,11 +86,32 @@ export const state: stateType = {
 
 export const addPost = (postText: string) => {
     state.profilePage.postsData.push({id: '4', message: postText,likesCount: 0})
+    console.log({ state })
+    rerenderEntireTree(state)
 }
 
-console.log({ state })
+
 
 export const addMessage = (messageText: string) => {
-    state.dialogsPage.messagesData.push({id: '7', message: messageText},
-    )
+    state.dialogsPage.messagesData.push({id: '7', message: messageText})
+    rerenderEntireTree(state)
+}
+
+// state для текст ариа в постах
+
+export let textAriaPostValue: string = ''
+
+export const setTextAriaPostValue = (value: string) => {
+    textAriaPostValue = value
+    rerenderEntireTree(state)
+}
+
+
+// state для текст ариа в сообщениях
+
+export let textAriaMessageValue: string = ''
+
+export const setTextMessagePostValue = (value: string) => {
+    textAriaMessageValue = value
+    rerenderEntireTree(state)
 }

@@ -4,16 +4,21 @@ import './index.css';
 import App from './App';
 import {addMessage, addPost, DialogDataType, MessageType, PostType, state} from "./state/state";
 import {BrowserRouter} from "react-router-dom";
+import {rerenderEntireTree} from "./state/render";
 
-ReactDOM.render(
-    <BrowserRouter>
-        <App addPost={addPost}
-             addMessage={addMessage}
-             state={state}/>
-    </BrowserRouter>
-    ,
-  document.getElementById('root')
-);
+
+
+rerenderEntireTree(state)
+
+// ReactDOM.render(
+//     <BrowserRouter>
+//         <App addPost={addPost}
+//              addMessage={addMessage}
+//              state={state}/>
+//     </BrowserRouter>
+//     ,
+//   document.getElementById('root')
+// );
 
 
 

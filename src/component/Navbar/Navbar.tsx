@@ -2,14 +2,13 @@ import React from "react";
 import n from './Navbar.module.css'
 import {NavLink} from "react-router-dom";
 import {Friends} from "./Friends/Friends";
-import {sideBarType} from "../../state/state";
+import {sideBarType} from "../../state";
 
 type NavbarType = {
     sidebar: sideBarType
 }
 
 export const Navbar = (props: NavbarType) => {
-    console.log('Render NAVBAR')
 
     return (
         <nav className={n.appNav}>

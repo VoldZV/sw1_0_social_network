@@ -8,19 +8,19 @@ import {Route} from "react-router-dom";
 import {News} from "./component/News/News";
 import {Music} from "./component/Music/Music";
 import {Settings} from "./component/Settings/Setting";
-import {stateType} from "./state/state";
-// import Technologies from "./component/technologies";
+import {setTextAriaPostValue, stateType} from "./state";
 
 
 type AppPropsType = {
     state: stateType
     addPost: (postText: string) => void
     addMessage: (messageText: string) => void
+    setTextAriaPostValue: (value: string) => void
+    setTextMessageValue: (message: string) => void
 }
 
 
 export const App = (props: AppPropsType) => {
-    console.log('Render APP')
     return (
         <div className='app-wrapper'>
             <Header/>
@@ -30,11 +30,14 @@ export const App = (props: AppPropsType) => {
                        render={() => <Profile
                            addPost={props.addPost}
                            profilePage={props.state.profilePage}
+                           setTextAriaPostValue={setTextAriaPostValue}
                        />}/>
                 <Route path='/dialogs'
                        render={() => <Dialogs
                            addMessage={props.addMessage}
+                           setTextMessageValue={props.setTextMessageValue}
                            dialogsPage={props.state.dialogsPage}
+                           textAriaMessageValue={props.state.dialogsPage.textAriaMessageValue}
                        />}/>
                 <Route path='/news' component={News}/>
                 <Route path='/music' component={Music}/>

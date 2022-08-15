@@ -4,7 +4,12 @@
 
 // Общая для state
 
-import {rerenderEntireTree} from "./render";
+// import {rerenderEntireTree} from "./index";
+
+let rerenderEntireTree = () => {
+
+}
+
 
 export type stateType = {
     dialogsPage: dialogsPageType
@@ -18,6 +23,7 @@ export type stateType = {
 export type dialogsPageType = {
     dialogsData: Array<DialogDataType>
     messagesData: Array<MessageType>
+    textAriaMessageValue: string
 }
 
 export type DialogDataType = {
@@ -35,6 +41,7 @@ export type MessageType = {
 
 export type profilePageType = {
     postsData: Array<PostType>
+    textAriaPostValue: string
 }
 
 export type PostType = {
@@ -68,14 +75,16 @@ export const state: stateType = {
             {id: '4', message: 'How are you'},
             {id: '5', message: 'That`s good'},
             {id: '6', message: 'Very well!'},
-        ]
+        ],
+        textAriaMessageValue: ''
     },
     profilePage: {
         postsData: [
             {id: '1', message: "Hello, I\'m here", likesCount: 103},
             {id: '2', message: 'Oh, very glad to see you', likesCount: 2},
             {id: '3', message: 'Hi, my name is Frank',likesCount: 11},
-        ]
+        ],
+        textAriaPostValue: ''
     },
     sideBar: {
         friends: []
@@ -86,32 +95,38 @@ export const state: stateType = {
 
 export const addPost = (postText: string) => {
     state.profilePage.postsData.push({id: '4', message: postText,likesCount: 0})
-    console.log({ state })
-    rerenderEntireTree(state)
+    state.profilePage.textAriaPostValue = ''
+    rerenderEntireTree()
 }
 
 
 
 export const addMessage = (messageText: string) => {
     state.dialogsPage.messagesData.push({id: '7', message: messageText})
-    rerenderEntireTree(state)
+    state.dialogsPage.textAriaMessageValue = ''
+    rerenderEntireTree()
 }
 
 // state для текст ариа в постах
 
-export let textAriaPostValue: string = ''
+
 
 export const setTextAriaPostValue = (value: string) => {
-    textAriaPostValue = value
-    rerenderEntireTree(state)
+    state.profilePage.textAriaPostValue = value
+    rerenderEntireTree()
 }
 
 
 // state для текст ариа в сообщениях
 
-export let textAriaMessageValue: string = ''
+export const setTextMessageValue = (value: string) => {
+    state.dialogsPage.textAriaMessageValue = value
+    rerenderEntireTree()
+}
 
-export const setTextMessagePostValue = (value: string) => {
-    textAriaMessageValue = value
-    rerenderEntireTree(state)
+// создаем функцию для экспорта в index.tsx, чтобы там она была вызвана
+// и приняла callback rerenderEntireTree - т.о. не будет цикл. зависимости
+
+export const subscribe = (observer: ()=>void) => {
+    rerenderEntireTree = observer // наблюдатель
 }

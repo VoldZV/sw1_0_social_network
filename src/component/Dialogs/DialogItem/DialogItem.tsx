@@ -1,12 +1,11 @@
 import d from "../Dialogs.module.css";
 import {NavLink} from "react-router-dom";
 import React from "react";
-import {DialogDataType} from "../../../state/state";
+import {DialogDataType} from "../../../state";
 
 
 
 export const  DialogItem = (props: DialogDataType) => {
-    console.log('Render DiaolgItem')
 
     return (
         <div className={d.dialogs_items_item}>

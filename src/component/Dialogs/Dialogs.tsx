@@ -4,17 +4,17 @@ import {NavLink} from "react-router-dom";
 import {DialogItem} from "./DialogItem/DialogItem";
 import {Message} from "./Message/Message";
 import {
+    ActionType, addMessageActionCreator, changeMessageActionCreator,
     DialogDataType,
-    dialogsPageType,
+    DialogsPageType,
     MessageType,
-} from "../../state";
+} from "../../state/state";
 import CrPost from "../Profile/Posts/CreatePost/CreatePost.module.css";
 
 
 type DialogsPropsType = {
-    dialogsPage: dialogsPageType
-    addMessage: (messageText: string) => void
-    setTextMessageValue: (messageText: string) => void
+    dialogsPage: DialogsPageType
+    dispatch: (action: ActionType) => void
     textAriaMessageValue: string
 }
 
@@ -23,12 +23,16 @@ export const Dialogs = (props: DialogsPropsType) => {
 
     const addRefMessage: RefObject<HTMLTextAreaElement> = React.createRef()
 
-    const addMessageHandler = () => {
-        props.addMessage(props.textAriaMessageValue)
+    const addMessageHandler = function () {
+        // props.addMessage(props.textAriaMessageValue)
+        const action = addMessageActionCreator(props.textAriaMessageValue)
+        props.dispatch(action)
     }
 
-    const onChangeTextAriaHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        props.setTextMessageValue(e.currentTarget.value)
+    const onChangeTextAriaHandler = function (e: ChangeEvent<HTMLTextAreaElement>) {
+        // props.setTextMessageValue(e.currentTarget.value)
+        const action = changeMessageActionCreator(e.currentTarget.value)
+        props.dispatch(action)
     }
 
     return (

@@ -1,28 +1,24 @@
 import ReactDOM from "react-dom";
 import {BrowserRouter} from "react-router-dom";
 import App from "../src/App";
-import {addMessage, addPost, setTextAriaPostValue, setTextMessageValue, stateType, subscribe} from "./state";
 import React from "react";
-import {state} from "./state";
+import {StateType, store} from "./state/state";
 
 
-const rerenderEntireTree = () => {
+const rerenderEntireTree = function (state: StateType) {
     ReactDOM.render(
         <BrowserRouter>
-            <App addPost={addPost}
-                 addMessage={addMessage}
-                 state={state}
-                 setTextAriaPostValue={setTextAriaPostValue}
-                 setTextMessageValue={setTextMessageValue}
+            <App state={store.getState()}
+                 store={store}
             />
         </BrowserRouter>,
         document.getElementById('root'));
 }
 
 
-rerenderEntireTree()
+rerenderEntireTree(store.getState())
 
-subscribe(rerenderEntireTree)
+store.subscribe(rerenderEntireTree)
 
 // ReactDOM.render(
 //     <BrowserRouter>

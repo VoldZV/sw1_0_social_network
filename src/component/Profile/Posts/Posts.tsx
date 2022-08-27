@@ -1,7 +1,7 @@
 import React from "react";
 import p from './Posts.module.css'
 import {Post} from "./Post/Post";
-import {PostType} from "../../../state";
+import {PostType} from "../../../state/state";
 
 
 export type PostsType = {

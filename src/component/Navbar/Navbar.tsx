@@ -2,10 +2,10 @@ import React from "react";
 import n from './Navbar.module.css'
 import {NavLink} from "react-router-dom";
 import {Friends} from "./Friends/Friends";
-import {sideBarType} from "../../state";
+import {SideBarType} from "../../state/state";
 
 type NavbarType = {
-    sidebar: sideBarType
+    sidebar: SideBarType
 }
 
 export const Navbar = (props: NavbarType) => {

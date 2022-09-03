@@ -1,7 +1,7 @@
 import React from "react";
 import p from './Posts.module.css'
 import {Post} from "./Post/Post";
-import {PostType} from "../../../state/state";
+import {PostType} from "../../../state/store-redux";
 
 
 export type PostsType = {
@@ -15,7 +15,7 @@ export const Posts = (props: PostsType) => {
             <h3>Опубликованные посты</h3>
             {props.posts.map((post, i) => {
                 return (
-                    <Post message={post.message} likes={post.likesCount} id={p.id}/>
+                    <Post key={i} message={post.message} likes={post.likesCount} id={p.id}/>
                 )
             })}
             {/* <Post message="Hello, I'm here" likes={3} id={p.id}/>

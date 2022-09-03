@@ -1,8 +1,13 @@
 import React from 'react';
-import {ActionType, SideBarType} from "./state";
+import {ActionType} from "./store-redux";
 
-const reducerSideBar = (state: SideBarType, action: ActionType) => {
+type SideBarType = {
+    friends: []
+}
+
+const initialSideBarState: SideBarType = {friends: []}
+
+export const reducerSideBar = (state:SideBarType= initialSideBarState, action: ActionType) : SideBarType => {
     return state
 };
 
-export default reducerSideBar;

@@ -1,6 +1,7 @@
 import React, {ChangeEvent, RefObject} from "react";
 import CrPost from './CreatePost.module.css'
-import {ActionType, addPostActionCreator, changePostActionCreator} from "../../../../state/state";
+import {ActionType} from "../../../../state/store-redux";
+import {addPostActionCreator, changePostActionCreator} from "../../../../state/reducerProfile";
 
 type CreatePostType = {
     // addPost: (postText: string)=>void

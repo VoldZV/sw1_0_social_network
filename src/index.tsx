@@ -2,7 +2,8 @@ import ReactDOM from "react-dom";
 import {BrowserRouter} from "react-router-dom";
 import App from "../src/App";
 import React from "react";
-import {StateType, store} from "./state/state";
+import {StateType} from "./state/store-redux";
+import {store} from './state/store-redux'
 
 
 const rerenderEntireTree = function (state: StateType) {
@@ -18,7 +19,11 @@ const rerenderEntireTree = function (state: StateType) {
 
 rerenderEntireTree(store.getState())
 
-store.subscribe(rerenderEntireTree)
+store.subscribe(()=>rerenderEntireTree(store.getState()))
+
+
+
+
 
 // ReactDOM.render(
 //     <BrowserRouter>

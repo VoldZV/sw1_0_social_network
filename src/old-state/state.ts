@@ -7,30 +7,30 @@
 // import {rerenderEntireTree} from "./index";
 
 
-import reducerProfile from "./reducerProfile";
-import reducerDialogs from "./reducerDialogs";
-import reducerSideBar from "./reducerSideBar";
+import {reducerProfile} from "../state/reducerProfile";
+import {reducerDialogs} from "../state/reducerDialogs";
+import {reducerSideBar} from "../state/reducerSideBar";
+import {addPostTextActionType, ChangePostTextActionType} from "../state/store-redux";
 
-// пока оставил 2 варианта типизации функций взаимосвязанное с типом action - возвращаемое значение как константа
-// тогда можно не указывать тип и непосредственно указанный тип возвращаемого значения
-export const addPostActionCreator = (postText: string) => ({
-    type: 'ADD-POST-TEXT',
-    postText: postText
-} as const)
-export const changePostActionCreator = (postText: string) => {
-    return {
-        type: 'CHANGE-POST-TEXT',
-        postText: postText
-    } as const
-}
-export const addMessageActionCreator = (messageText: string): AddMessageTextActionType => ({
+const addMessageActionCreator = (messageText: string): AddMessageTextActionType => ({
     type: 'ADD-MESSAGE-TEXT',
     messageText: messageText
 })
-export const changeMessageActionCreator = (messageText: string): ChangeMessageTextActionType => ({
+const changeMessageActionCreator = (messageText: string): ChangeMessageTextActionType => ({
     type: 'CHANGE-MESSAGE-TEXT',
     messageText: messageText
 })
+
+const addPostActionCreator = (postText: string): addPostTextActionType => ({
+    type: 'ADD-POST-TEXT',
+    postText: postText
+})
+const changePostActionCreator = (postText: string) : ChangePostTextActionType => {
+    return {
+        type: 'CHANGE-POST-TEXT',
+        postText: postText
+    }
+}
 
 
 export type StateType = {
@@ -80,10 +80,10 @@ export type SideBarType = {
 
 export type StoreType = {
     _state: StateType
-    addPost: (postText: string) => void
-    addMessage: (messageText: string) => void
-    setTextAriaPostValue: (value: string) => void
-    setTextMessageValue: (value: string) => void
+    // addPost: (postText: string) => void
+    // addMessage: (messageText: string) => void
+    // setTextAriaPostValue: (value: string) => void
+    // setTextMessageValue: (value: string) => void
     _callSubscriber: (state: StateType) => void
     subscribe: (observer: (state: StateType) => void) => void
     getState: () => StateType
@@ -99,6 +99,8 @@ export type ActionType =
 // можно не прописывать отдельно типы для action когда протипизировано возвращаемое значение функции как константное
 // type ChangePostTextActionType = ReturnType<typeof changePostActionCreator>
 // type AddPostTextActionType = ReturnType<typeof addPostActionCreator>
+
+
 
 type ChangeMessageTextActionType = {
     type: 'CHANGE-MESSAGE-TEXT'
@@ -173,27 +175,27 @@ export const store: StoreType = {
         this._callSubscriber = observer // наблюдатель
     },
 
-    //Добавление сообщений и постов
-    addPost(postText: string) {
-        this._state.profilePage.postsData.push({id: '4', message: postText, likesCount: 0})
-        this._state.profilePage.textAriaPostValue = ''
-        this._callSubscriber(this._state)
-    },
-    addMessage(messageText: string) {
-        this._state.dialogsPage.messagesData.push({id: '7', message: messageText})
-        this._state.dialogsPage.textAriaMessageValue = ''
-        this._callSubscriber(this._state)
-    },
-    // state для текст ариа в постах
-    setTextAriaPostValue(value: string) {
-        this._state.profilePage.textAriaPostValue = value
-        this._callSubscriber(this._state)
-    },
-    // state для текст ариа в сообщениях
-    setTextMessageValue(value: string) {
-        this._state.dialogsPage.textAriaMessageValue = value
-        this._callSubscriber(this._state)
-    },
+    //Добавление сообщений и постов (до диспатч и экшн креэйтор)
+    // addPost(postText: string) {
+    //     this._state.profilePage.postsData.push({id: '4', message: postText, likesCount: 0})
+    //     this._state.profilePage.textAriaPostValue = ''
+    //     this._callSubscriber(this._state)
+    // },
+    // addMessage(messageText: string) {
+    //     this._state.dialogsPage.messagesData.push({id: '7', message: messageText})
+    //     this._state.dialogsPage.textAriaMessageValue = ''
+    //     this._callSubscriber(this._state)
+    // },
+    // // state для текст ариа в постах
+    // setTextAriaPostValue(value: string) {
+    //     this._state.profilePage.textAriaPostValue = value
+    //     this._callSubscriber(this._state)
+    // },
+    // // state для текст ариа в сообщениях
+    // setTextMessageValue(value: string) {
+    //     this._state.dialogsPage.textAriaMessageValue = value
+    //     this._callSubscriber(this._state)
+    // },
 
     // объединяем все методы в один и вызов нужного метода будет происходить исходя из action, переданного
     // как параметр в dispatch

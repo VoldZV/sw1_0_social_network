@@ -8,7 +8,8 @@ import {ActionType, ProfilePageType} from "../../state/store-redux";
 
 type ProfileType = {
     profilePage: ProfilePageType
-    dispatch: (action: ActionType) => void
+    addPost: () => void
+    onChangeTextAria: (posttext: string) => void
 }
 
 export const Profile = (props: ProfileType) => {
@@ -16,8 +17,9 @@ export const Profile = (props: ProfileType) => {
     return (
         <div className={p.appContent}>
             <ProfileInfo/>
-            <CreatePost dispatch={props.dispatch}
+            <CreatePost addPost={props.addPost}
                         textAriaPostValue={props.profilePage.textAriaPostValue}
+                        onChangeTextAria={props.onChangeTextAria}
             />
             <Posts posts={props.profilePage.postsData}/>
         </div>

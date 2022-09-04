@@ -12,7 +12,8 @@ import {addMessageActionCreator, changeMessageActionCreator} from "../../state/r
 
 type DialogsPropsType = {
     dialogsPage: DialogsPageType
-    dispatch: (action: ActionType) => void
+    addMessage: () => void
+    onChangeTextAria: (message: string) => void
     textAriaMessageValue: string
 }
 
@@ -21,14 +22,8 @@ export const Dialogs = (props: DialogsPropsType) => {
 
     const addRefMessage: RefObject<HTMLTextAreaElement> = React.createRef()
 
-    const addMessageHandler = function () {
-        const action = addMessageActionCreator(props.textAriaMessageValue)
-        props.dispatch(action)
-    }
-
     const onChangeTextAriaHandler = function (e: ChangeEvent<HTMLTextAreaElement>) {
-        const action = changeMessageActionCreator(e.currentTarget.value)
-        props.dispatch(action)
+        props.onChangeTextAria(e.currentTarget.value)
     }
 
     return (
@@ -46,7 +41,7 @@ export const Dialogs = (props: DialogsPropsType) => {
                     <textarea onChange={onChangeTextAriaHandler} value={props.textAriaMessageValue}
                               ref={addRefMessage}/>
                     <div>
-                        <button onClick={addMessageHandler} className={CrPost.buttons}>send</button>
+                        <button onClick={props.addMessage} className={CrPost.buttons}>send</button>
                         <button className={CrPost.buttons}>clear</button>
                     </div>
                 </div>

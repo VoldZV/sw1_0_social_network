@@ -9,6 +9,8 @@ import {News} from "./component/News/News";
 import {Music} from "./component/Music/Music";
 import {Settings} from "./component/Settings/Setting";
 import {StateType, StoreType} from "./state/store-redux";
+import {DialogsContainer} from "./component/Dialogs/DialogsContainer";
+import {ProfileContainer} from "./component/Profile/ProfileContainer";
 
 
 type AppPropsType = {
@@ -25,15 +27,14 @@ export const App = (props: AppPropsType) => {
             <Navbar sidebar={props.state.sideBar}/>
             <div className="app-wrapper-appContent">
                 <Route path='/profile'
-                       render={() => <Profile
+                       render={() => <ProfileContainer
                            profilePage={props.state.profilePage}
                            dispatch={props.store.dispatch.bind(props.store)}
                        />}/>
                 <Route path='/dialogs'
-                       render={() => <Dialogs
+                       render={() => <DialogsContainer
                            dispatch={props.store.dispatch.bind(props.store)}
                            dialogsPage={props.state.dialogsPage}
-                           textAriaMessageValue={props.state.dialogsPage.textAriaMessageValue}
                        />}/>
                 <Route path='/news' component={News}/>
                 <Route path='/music' component={Music}/>

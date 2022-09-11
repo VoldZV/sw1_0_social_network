@@ -1,40 +1,72 @@
 import React from "react";
 import {
     ActionType,
-    DialogsPageType,
+    DialogsPageType, StateType, store,
 } from "../../state/store-redux";
 import {addMessageActionCreator, changeMessageActionCreator} from "../../state/reducerDialogs";
 import {Dialogs} from "./Dialogs";
+import {connect} from "react-redux";
+import {Dispatch} from "redux";
 
 
-type DialogsPropsType = {
+
+
+
+// export const DialogsContainer = (props: DialogsPropsType) => {
+//
+//     const addMessageHandler = function () {
+//         const action = addMessageActionCreator(props.dialogsPage.textAriaMessageValue)
+//         props.dispatch(action)
+//     }
+//
+//     const onChangeTextAriaHandler = function (message: string) {
+//         const action = changeMessageActionCreator(message)
+//         props.dispatch(action)
+//     }
+//
+//     return (
+//         <Dialogs dialogsPage={props.dialogsPage}
+//                  addMessage={addMessageHandler}
+//                  onChangeTextAria={onChangeTextAriaHandler}
+//                  textAriaMessageValue={props.dialogsPage.textAriaMessageValue}
+//         />
+//     )
+// }
+
+type mapStateToPropsType = {
     dialogsPage: DialogsPageType
-    dispatch: (action: ActionType) => void
+    textAriaMessageValue: string
+}
+
+type mapDispatchToPropsType = {
+    addMessage: (textMessage: string) => void
+    onChangeTextAria: (message: string) => void
+}
+
+export type DialogsPropsType = mapStateToPropsType & mapDispatchToPropsType
+
+const mapStateToProps = (state: StateType): mapStateToPropsType => {
+    return {
+        dialogsPage: state.dialogsPage,
+        textAriaMessageValue: state.dialogsPage.textAriaMessageValue
+    }
+}
+
+const mapDispatchToProps = (dispatch: Dispatch) : mapDispatchToPropsType => {
+    return {
+        addMessage: (textMessage: string) => {
+            const action = addMessageActionCreator(textMessage)
+            dispatch(action)
+        },
+        onChangeTextAria: (message: string) => {
+            const action = changeMessageActionCreator(message)
+            dispatch(action)
+        }
+    }
 }
 
 
-export const DialogsContainer = (props: DialogsPropsType) => {
-
-    const addMessageHandler = function () {
-        const action = addMessageActionCreator(props.dialogsPage.textAriaMessageValue)
-        props.dispatch(action)
-    }
-
-    const onChangeTextAriaHandler = function (message: string) {
-        const action = changeMessageActionCreator(message)
-        props.dispatch(action)
-    }
-
-    return (
-        <Dialogs dialogsPage={props.dialogsPage}
-                 addMessage={addMessageHandler}
-                 onChangeTextAria={onChangeTextAriaHandler}
-                 textAriaMessageValue={props.dialogsPage.textAriaMessageValue}
-        />
-    )
-}
-
-
+export const DialogsContainer = connect(mapStateToProps,mapDispatchToProps)(Dialogs)
 
 
 

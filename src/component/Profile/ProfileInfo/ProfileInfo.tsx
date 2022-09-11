@@ -4,7 +4,7 @@ import pr from './ProfileInfo.module.css'
 const ProfileInfo = () => {
     return (
         <div>
-            <div><img src="https://img1.goodfon.ru/original/3200x1200/8/13/vancouver-british-columbia-1284.jpg"
+            <div><img src="https://co10.nevseoboi.com.ua/posts/2010-01/1262606847_chicago-illinois.jpg"
                       alt="photo"/>
             </div>
             <div className={pr.avaDescr}>

@@ -3,16 +3,10 @@ import p from './Profile.module.css'
 import {Posts} from "./Posts/Posts";
 import {CreatePost} from "./Posts/CreatePost/CreatePost";
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
-import {ActionType, ProfilePageType} from "../../state/store-redux";
+import {ProfilePropsType} from "./ProfileContainer";
 
 
-type ProfileType = {
-    profilePage: ProfilePageType
-    addPost: () => void
-    onChangeTextAria: (posttext: string) => void
-}
-
-export const Profile = (props: ProfileType) => {
+export const Profile = (props: ProfilePropsType) => {
 
     return (
         <div className={p.appContent}>

@@ -3,19 +3,13 @@ import d from './Dialogs.module.css'
 import {DialogItem} from "./DialogItem/DialogItem";
 import {Message} from "./Message/Message";
 import {
-    ActionType,
-    DialogsPageType,
+    DialogsPageType
 } from "../../state/store-redux";
 import CrPost from "../Profile/Posts/CreatePost/CreatePost.module.css";
-import {addMessageActionCreator, changeMessageActionCreator} from "../../state/reducerDialogs";
+import {DialogsPropsType} from "./DialogsContainer";
 
 
-type DialogsPropsType = {
-    dialogsPage: DialogsPageType
-    addMessage: () => void
-    onChangeTextAria: (message: string) => void
-    textAriaMessageValue: string
-}
+
 
 
 export const Dialogs = (props: DialogsPropsType) => {
@@ -24,6 +18,10 @@ export const Dialogs = (props: DialogsPropsType) => {
 
     const onChangeTextAriaHandler = function (e: ChangeEvent<HTMLTextAreaElement>) {
         props.onChangeTextAria(e.currentTarget.value)
+    }
+
+    const addMessageHandler = () => {
+        if (props.textAriaMessageValue.trim()) props.addMessage(props.textAriaMessageValue)
     }
 
     return (
@@ -41,7 +39,7 @@ export const Dialogs = (props: DialogsPropsType) => {
                     <textarea onChange={onChangeTextAriaHandler} value={props.textAriaMessageValue}
                               ref={addRefMessage}/>
                     <div>
-                        <button onClick={props.addMessage} className={CrPost.buttons}>send</button>
+                        <button onClick={addMessageHandler} className={CrPost.buttons}>send</button>
                         <button className={CrPost.buttons}>clear</button>
                     </div>
                 </div>

@@ -7,10 +7,9 @@
 // import {rerenderEntireTree} from "./index";
 
 
-import {reducerProfile} from "../state/reducerProfile";
+import {addPostTextActionType, ChangePostTextActionType, reducerProfile} from "../state/reducerProfile";
 import {reducerDialogs} from "../state/reducerDialogs";
 import {reducerSideBar} from "../state/reducerSideBar";
-import {addPostTextActionType, ChangePostTextActionType} from "../state/store-redux";
 
 const addMessageActionCreator = (messageText: string): AddMessageTextActionType => ({
     type: 'ADD-MESSAGE-TEXT',

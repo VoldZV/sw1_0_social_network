@@ -1,7 +1,7 @@
-import {combineReducers, createStore} from "redux";
-import {reducerProfile} from "./reducerProfile";
-import {reducerDialogs} from "./reducerDialogs";
+import {addPostTextActionType, ChangePostTextActionType, reducerProfile} from "./reducerProfile";
+import {AddMessageTextActionType, ChangeMessageTextActionType, reducerDialogs} from "./reducerDialogs";
 import {reducerSideBar} from "./reducerSideBar";
+import {combineReducers, legacy_createStore, Store} from "redux";
 
 
 const reducers = combineReducers({
@@ -10,16 +10,16 @@ const reducers = combineReducers({
     sideBar: reducerSideBar
 })
 
-export const store: StoreType = createStore(reducers)
+// Можно создать типизацию для общего стейта приложения следующим образом
+// export type AppStateType = ReturnType<typeof reducers> и использовать ее вместо
+// StateType в ProfileContainer и DialogsContainer
+// для примера Я использовал типизацию таким образом в ProfileContainer
+// и обычным образом, т.е. StateType в DialogsContainer
+export type AppStateType = ReturnType<typeof reducers>
 
-export type StoreType = {
-    _state: StateType
-    _callSubscriber: (state: StateType) => void
-    subscribe: (observer: (state: StateType) => void) => void
-    getState: () => StateType
-    dispatch: (action: ActionType) => void
-}
+export const store: Store<ReturnType<typeof reducers>> = legacy_createStore(reducers)
 
+// Типизация, объединяющая все страницы
 export type StateType = {
     dialogsPage: DialogsPageType
     profilePage: ProfilePageType
@@ -66,32 +66,17 @@ export type SideBarType = {
 
 
 
+
+
+// Вместо этого типа в mapStateToProps и mapDispatchToProps использовали
+// типизацию Dispatch (импортировали этот тип из библиотеки redux)
+// Dicpatch - типизация ф-ции dispatch из store, которая принимает все типы action
+
 export type ActionType =
     addPostTextActionType
     | ChangePostTextActionType
     | ChangeMessageTextActionType
     | AddMessageTextActionType
 
-// можно не прописывать отдельно типы для action когда протипизировано возвращаемое значение функции как константное
-// type ChangePostTextActionType = ReturnType<typeof changePostActionCreator>
-// type AddPostTextActionType = ReturnType<typeof addPostActionCreator>
-
-export type addPostTextActionType = {
-    type: 'ADD-POST-TEXT',
-    postText: string
-}
-
-export type ChangePostTextActionType = {
-    type: 'CHANGE-POST-TEXT'
-    postText: string
-}
 
 
-export type ChangeMessageTextActionType = {
-    type: 'CHANGE-MESSAGE-TEXT'
-    messageText: string
-}
-export type AddMessageTextActionType = {
-    type: 'ADD-MESSAGE-TEXT'
-    messageText: string
-}

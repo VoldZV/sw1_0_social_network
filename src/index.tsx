@@ -4,25 +4,25 @@ import App from "../src/App";
 import React from "react";
 import {StateType} from "./state/store-redux";
 import {store} from './state/store-redux'
+import {Provider} from "react-redux";
 
 
-const rerenderEntireTree = function (state: StateType) {
-    ReactDOM.render(
-        <BrowserRouter>
-            <App state={store.getState()}
-                 store={store}
+ReactDOM.render(
+    <BrowserRouter>
+        <Provider store={store}>
+            <App
             />
-        </BrowserRouter>,
-        document.getElementById('root'));
-}
+        </Provider>
+    </BrowserRouter>,
+    document.getElementById('root'));
 
 
-rerenderEntireTree(store.getState())
-
-store.subscribe(()=>rerenderEntireTree(store.getState()))
-
-
-
+// убираем наш субскрайбер, так как добавили реакт-редакс
+// rerenderEntireTree()
+//
+// store.subscribe(() => {
+//     rerenderEntireTree()
+// })
 
 
 // ReactDOM.render(
@@ -34,10 +34,6 @@ store.subscribe(()=>rerenderEntireTree(store.getState()))
 //     ,
 //   document.getElementById('root')
 // );
-
-
-
-
 
 
 //Dialogs - component

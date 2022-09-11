@@ -1,11 +1,5 @@
 import React from 'react';
-import {
-    ActionType,
-    AddMessageTextActionType,
-    ChangeMessageTextActionType,
-    DialogDataType,
-    MessageType
-} from "./store-redux";
+import {ActionType, DialogDataType, MessageType} from "./store-redux";
 
 type DialogsPageType = {
     dialogsData: Array<DialogDataType>
@@ -52,17 +46,29 @@ const initialDialogsPageState: DialogsPageType = {
 export const reducerDialogs = (state:DialogsPageType = initialDialogsPageState, action: ActionType): DialogsPageType => {
     switch (action.type) {
         case 'CHANGE-MESSAGE-TEXT':
-            state.textAriaMessageValue = action.messageText
-            return state
+            return {...state, textAriaMessageValue: action.messageText}
         case 'ADD-MESSAGE-TEXT':
-            state.messagesData.push({id: '7', message: state.textAriaMessageValue})
-            state.textAriaMessageValue = ''
-            return state
+            return {
+                ...state,
+                messagesData: [...state.messagesData, {
+                    id: '7',
+                    message: state.textAriaMessageValue
+                }],
+                textAriaMessageValue: ''
+            }
         default:
             return state
     }
 };
 
+export type ChangeMessageTextActionType = {
+    type: 'CHANGE-MESSAGE-TEXT'
+    messageText: string
+}
+export type AddMessageTextActionType = {
+    type: 'ADD-MESSAGE-TEXT'
+    messageText: string
+}
 export const addMessageActionCreator = (messageText: string): AddMessageTextActionType => ({
     type: 'ADD-MESSAGE-TEXT',
     messageText: messageText

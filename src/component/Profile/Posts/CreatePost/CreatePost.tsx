@@ -3,7 +3,7 @@ import CrPost from './CreatePost.module.css'
 
 type CreatePostType = {
     textAriaPostValue: string
-    addPost: () => void
+    addPost: (postText: string) => void
     onChangeTextAria: (posttext: string) => void
 }
 
@@ -14,10 +14,14 @@ export const CreatePost = (props: CreatePostType) => {
         props.onChangeTextAria(e.currentTarget.value)
     }
 
+    const addPostHandler = () => {
+        if (props.textAriaPostValue.trim())props.addPost(props.textAriaPostValue)
+    }
+
     return (
         <div>
             <textarea value={props.textAriaPostValue} onChange={onChangeHandler} />
-            <button onClick={props.addPost} className={CrPost.buttons}>ОПУБЛИКОВАТЬ</button>
+            <button onClick={addPostHandler} className={CrPost.buttons}>ОПУБЛИКОВАТЬ</button>
             <button className={CrPost.buttons}>ОЧИСТИТЬ ФОРМУ</button>
         </div>
     )

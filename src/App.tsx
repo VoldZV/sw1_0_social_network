@@ -11,6 +11,8 @@ import {Settings} from "./component/Settings/Setting";
 import {DialogsContainer} from "./component/Dialogs/DialogsContainer";
 import {ProfileContainer} from "./component/Profile/ProfileContainer";
 import {store} from "./state/store-redux";
+import {Users} from "./component/Users/Users";
+import {UsersContainer} from "./component/Users/UsersContainer";
 
 
 
@@ -28,6 +30,9 @@ export const App = () => {
                 />
                 <Route path='/dialogs'
                        render={() => <DialogsContainer/>}
+                />
+                <Route path='/users'
+                       render={() => <UsersContainer/>}
                 />
                 <Route path='/news' component={News}/>
                 <Route path='/music' component={Music}/>

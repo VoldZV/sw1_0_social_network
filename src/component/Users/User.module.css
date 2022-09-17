@@ -1,0 +1,13 @@
+.usersPage {
+    padding: 20px;
+}
+
+.user {
+    margin-bottom: 20px;
+}
+
+.userPhoto {
+    width: 75px;
+    height: 75px;
+    border-radius: 100%;
+}

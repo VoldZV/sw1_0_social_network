@@ -2,11 +2,13 @@ import {addPostTextActionType, ChangePostTextActionType, reducerProfile} from ".
 import {AddMessageTextActionType, ChangeMessageTextActionType, reducerDialogs} from "./reducerDialogs";
 import {reducerSideBar} from "./reducerSideBar";
 import {combineReducers, legacy_createStore, Store} from "redux";
+import {followActionType, reducerUsers, setUsersActionType, unfollowActionType, UsersPageType} from "./reducerUsers";
 
 
 const reducers = combineReducers({
     profilePage: reducerProfile,
     dialogsPage: reducerDialogs,
+    usersPage: reducerUsers,
     sideBar: reducerSideBar
 })
 
@@ -23,6 +25,7 @@ export const store: Store<ReturnType<typeof reducers>> = legacy_createStore(redu
 export type StateType = {
     dialogsPage: DialogsPageType
     profilePage: ProfilePageType
+    usersPage: UsersPageType
     sideBar: SideBarType
 }
 
@@ -77,6 +80,9 @@ export type ActionType =
     | ChangePostTextActionType
     | ChangeMessageTextActionType
     | AddMessageTextActionType
+    | followActionType
+    | unfollowActionType
+    | setUsersActionType
 
 
 

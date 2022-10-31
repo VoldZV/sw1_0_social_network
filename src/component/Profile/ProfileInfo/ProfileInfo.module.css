@@ -1,3 +1,8 @@
 .avaDescr {
     padding: 10px;
 }
+
+.avaUserProfile {
+    height: 300px;
+    width: 300px !important;
+}

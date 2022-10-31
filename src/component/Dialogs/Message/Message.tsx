@@ -1,7 +1,10 @@
 import d from "../Dialogs.module.css";
 import React from "react";
-import {MessageType} from "../../../old-state/state";
-import {message} from "antd";
+
+export type MessageType = {
+    message: string
+    id: string
+}
 
 export const  Message = (props: MessageType) => {
     return (

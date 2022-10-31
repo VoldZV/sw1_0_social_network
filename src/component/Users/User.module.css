@@ -11,3 +11,17 @@
     height: 75px;
     border-radius: 100%;
 }
+
+button {
+    border-radius: 5px;
+}
+
+button:hover {
+    background-color: aquamarine;
+}
+
+.currentPage {
+
+    font-weight: bold;
+    background-color: #9696fd;
+}

@@ -13,6 +13,10 @@ import {ProfileContainer} from "./component/Profile/ProfileContainer";
 import {store} from "./state/store-redux";
 import {Users} from "./component/Users/Users";
 import {UsersContainer} from "./component/Users/UsersContainer";
+import ConnectUsers from "./component/Users/UsersContainer";
+import {
+    ProfileWithRouter
+} from "./component/Profile/ProfileContainerClass";
 
 
 
@@ -25,14 +29,14 @@ export const App = () => {
             <Header/>
             <Navbar sidebar={store.getState().sideBar}/>
             <div className="app-wrapper-appContent">
-                <Route path='/profile'
-                       render={() => <ProfileContainer/>}
+                <Route path='/profile/:userId?'
+                       render={() => <ProfileWithRouter/>}
                 />
                 <Route path='/dialogs'
                        render={() => <DialogsContainer/>}
                 />
                 <Route path='/users'
-                       render={() => <UsersContainer/>}
+                       render={() => <ConnectUsers/>}
                 />
                 <Route path='/news' component={News}/>
                 <Route path='/music' component={Music}/>

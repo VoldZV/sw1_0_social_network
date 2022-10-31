@@ -1,9 +1,12 @@
 import d from "../Dialogs.module.css";
 import {NavLink} from "react-router-dom";
 import React from "react";
-import {DialogDataType} from "../../../old-state/state";
 
-
+export type DialogDataType = {
+    id: string
+    name: string
+    avatar: string
+}
 
 export const  DialogItem = (props: DialogDataType) => {
 

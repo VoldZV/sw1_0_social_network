@@ -1,7 +1,7 @@
 import React from "react";
-import {ActionType, AppStateType, DialogsPageType, ProfilePageType, StateType} from "../../state/store-redux";
+import {AppStateType} from "../../state/store-redux";
 import {Profile} from "./Profile";
-import {addPostActionCreator, changePostActionCreator} from "../../state/reducerProfile";
+import {addPostActionCreator, changePostActionCreator, ProfilePageType} from "../../state/reducerProfile";
 import {connect} from "react-redux";
 import {Dispatch} from "redux";
 

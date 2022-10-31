@@ -1,10 +1,36 @@
 import React from 'react';
 import {ActionType, PostType} from "./store-redux";
 
-type ProfilePageType = {
+export type ProfilePageType = {
     postsData: Array<PostType>
     textAriaPostValue: string
+    profile: ProfileType | null
 }
+
+export type ProfileType = {
+    "aboutMe": string
+    "contacts": ProfileContactType
+    "lookingForAJob": boolean
+    "lookingForAJobDescription": string,
+    "fullName": string,
+    "userId": number,
+    "photos": {
+        "small": string,
+        "large": string
+    }
+}
+
+type ProfileContactType = {
+    "facebook": string,
+    "website": string | null,
+    "vk": string,
+    "twitter": string,
+    "instagram": string,
+    "youtube": string | null,
+    "github": string,
+    "mainLink": string | null
+}
+
 
 const initialProfileState: ProfilePageType = {
     postsData: [
@@ -12,7 +38,8 @@ const initialProfileState: ProfilePageType = {
         {id: '2', message: 'Oh, very glad to see you', likesCount: 2},
         {id: '3', message: 'Hi, my name is Frank', likesCount: 11},
     ],
-    textAriaPostValue: ''
+    textAriaPostValue: '',
+    profile: null
 }
 
 
@@ -20,6 +47,8 @@ export const reducerProfile = (state:ProfilePageType = initialProfileState, acti
     switch (action.type) {
         case 'CHANGE-POST-TEXT':
             return {...state, textAriaPostValue: action.postText }
+        case 'SET-USER-PROFILE':
+            return {...state, profile: action.profile }
         case  'ADD-POST-TEXT':
             return {
                 ...state,
@@ -43,6 +72,11 @@ export type ChangePostTextActionType = {
     type: 'CHANGE-POST-TEXT'
     postText: string
 }
+
+export type SetUserProfileActionActionType = {
+    type: 'SET-USER-PROFILE'
+    profile: ProfileType
+}
 // пока оставил 2 варианта типизации функций взаимосвязанное с типом action - возвращаемое значение как константа
 // тогда можно не указывать тип и непосредственно указанный тип возвращаемого значения
 export const addPostActionCreator = (postText: string): addPostTextActionType => ({
@@ -53,5 +87,12 @@ export const changePostActionCreator = (postText: string) : ChangePostTextAction
     return {
         type: 'CHANGE-POST-TEXT',
         postText: postText
+    }
+}
+
+export const setUserProfileActionCreator = (profile: ProfileType) : SetUserProfileActionActionType => {
+    return {
+        type: 'SET-USER-PROFILE',
+        profile
     }
 }

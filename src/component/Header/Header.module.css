@@ -1,8 +1,17 @@
 .appHeader {
     grid-area: h;
     background-color: #73a882;
+    display: flex;
+    align-items: center;
 }
 
 .appHeader img {
     width: 60px;
+    height: 80%;
 }
+
+.clock {
+    margin-left: 50px;
+    font-size: 35px;
+}
+

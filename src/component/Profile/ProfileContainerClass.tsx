@@ -13,20 +13,20 @@ import axios from "axios";
 import {RouteComponentProps, withRouter} from "react-router-dom";
 
 
-
-
 class ProfileContainerClass extends React.Component<PropsProfType, ProfilePageType> {
 
 
     componentDidMount() {
         let userId = this.props.match.params.userId
         if (!userId) userId = '2'
-        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/` + userId).then(response => {
+        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/` + userId)
+            .then(response => {
             this.props.setUserProfile(response.data)
         })
+            .catch(err => console.log(`In Profile did mount ${userId}`, err))
     }
 
-    render ()  {
+    render() {
         return (
             <Profile {...this.props}/>
         );
@@ -47,13 +47,13 @@ type mapDispatchToPropsType = {
 
 export type ProfilePropsType = mapStateToPropsType & mapDispatchToPropsType
 
-const mapStateToProps = (state: AppStateType) : mapStateToPropsType => {
+const mapStateToProps = (state: AppStateType): mapStateToPropsType => {
     return {
         profilePage: state.profilePage,
     }
 }
 
-const mapDispatchToProps = (dispatch: Dispatch) : mapDispatchToPropsType => {
+const mapDispatchToProps = (dispatch: Dispatch): mapDispatchToPropsType => {
 
 
     return {
@@ -78,7 +78,7 @@ type ParamsType = {
 }
 type PropsProfType = RouteComponentProps<ParamsType> & ProfilePropsType
 
-const ProfileContainerClassConnect = connect(mapStateToProps,mapDispatchToProps)(ProfileContainerClass)
+const ProfileContainerClassConnect = connect(mapStateToProps, mapDispatchToProps)(ProfileContainerClass)
 
 export const ProfileWithRouter = withRouter(ProfileContainerClassConnect)
 

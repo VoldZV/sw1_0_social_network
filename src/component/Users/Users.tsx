@@ -2,15 +2,19 @@ import React from "react";
 import style from './User.module.css'
 import {UserType} from "../../state/reducerUsers";
 import {NavLink} from "react-router-dom";
+import axios from "axios";
+import {usersAPI} from "../../api/api";
 
 type UsersPropsType = {
     users: Array<UserType>
     totalCount: number
     pageSize: number
     currentPage: number
+    disabledUsers: Array<number>
     onPageChange: (pNumber: number) => void
     follow: (userId: number) => void
     unfollow: (userId: number) => void
+    toggleDisableUser: (userId: number, isFollowing: boolean) => void
 }
 
 
@@ -58,15 +62,58 @@ export const Users = (props: UsersPropsType) => {
                 {props.users.map(u => {
                     return (
                         <div className={style.user} key={u.id}>
-                            <NavLink to={'/profile/' + u.id }>
+                            <NavLink to={'/profile/' + u.id}>
                                 <img className={style.userPhoto}
                                      src={u.photos.small != null ? u.photos.small : 'https://media.istockphoto.com/vectors/beared-samurai-logo-black-and-white-vector-id1289877090?s=612x612'}
                                      alt="photo"/>
                             </NavLink>
                             {u.name} with ID: {u.id}
                             <div>
-                                {u.followed ? <button onClick={() => props.unfollow(u.id)}>follow</button>
-                                    : <button onClick={() => props.follow(u.id)}>unfollow</button>}
+                                {u.followed ?
+                                    <button disabled={props.disabledUsers.some(id => id === u.id)} onClick={() => {
+                                        console.log('click')
+                                        // axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`,
+                                        //     {
+                                        //         withCredentials: true,
+                                        //         headers: {
+                                        //             'API-KEY': '9a4825e2-08d3-45d5-9581-2297f88ccdf2'
+                                        //         }
+                                        //     }
+                                        // )
+                                        props.toggleDisableUser(u.id, true)
+                                        usersAPI.unfollowUser(u.id).then(data => {
+                                            if (data.resultCode == 0) {
+                                                props.unfollow(u.id)
+                                            }
+                                            props.toggleDisableUser(u.id, false)
+
+                                        })
+                                            .catch(err => console.log('Try unfollowUser', err))
+
+                                    }}>unfollow</button>
+                                    :
+                                    <button disabled={props.disabledUsers.some(id => id === u.id)} onClick={() => {
+                                        // axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`, {},
+                                        //     {
+                                        //         withCredentials: true,
+                                        //         headers: {
+                                        //             'API-KEY': '9a4825e2-08d3-45d5-9581-2297f88ccdf2'
+                                        //         }
+                                        //     }
+                                        // )
+                                        console.log('click')
+                                        props.toggleDisableUser(u.id, true)
+
+                                        usersAPI.followUser(u.id).then(data => {
+                                            props.toggleDisableUser(u.id, true)
+                                            if (data.resultCode == 0) {
+                                                props.follow(u.id)
+                                            }
+                                            props.toggleDisableUser(u.id, false)
+
+                                        })
+                                            .catch(err => console.log('Try followUser', err))
+                                    }}>follow</button>}
                             </div>
                         </div>
                     )
@@ -75,7 +122,6 @@ export const Users = (props: UsersPropsType) => {
         </div>
     )
 }
-
 
 
 // export const Users = (props: UsersPropsType) => {

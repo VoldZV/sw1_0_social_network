@@ -3,9 +3,10 @@
     background-color: #73a882;
     display: flex;
     align-items: center;
+    position: relative;
 }
 
-.appHeader img {
+.appHeader .headerLogo {
     width: 60px;
     height: 80%;
 }
@@ -13,5 +14,17 @@
 .clock {
     margin-left: 50px;
     font-size: 35px;
+}
+
+.loginBlock {
+    position: absolute;
+    right: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.loginAvatar {
+    border-radius: 50%;
+    height: 50px;
 }
 

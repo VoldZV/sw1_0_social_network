@@ -7,6 +7,7 @@ export type UsersPageType = {
     pageSize: number
     currentPage: number
     isFetching: boolean
+    disabledUsers: Array<number>
 }
 
 export type UserType = {
@@ -19,10 +20,6 @@ export type UserType = {
         large: null
     }
     followed: boolean
-    // location: {
-    //     city: string
-    //     town: string
-    // }
 }
 
 const initialUsersPageState: UsersPageType = {
@@ -30,7 +27,8 @@ const initialUsersPageState: UsersPageType = {
     totalCount: 0,
     pageSize: 5,
     currentPage: 1,
-    isFetching: false
+    isFetching: false,
+    disabledUsers: []
 }
 
 export const reducerUsers = (state: UsersPageType = initialUsersPageState, action: ActionType): UsersPageType => {
@@ -47,6 +45,12 @@ export const reducerUsers = (state: UsersPageType = initialUsersPageState, actio
             return {...state, totalCount: action.totalCount}
         case 'TOGGLE_FETHING':
             return {...state, isFetching: action.isFetching}
+        case 'TOGGLE_DISABLED_USER':
+            return {...state,
+                disabledUsers: action.isFollowing
+                    ? [...state.disabledUsers, action.userId]
+                    : state.disabledUsers.filter(id => id !== action.userId)
+            }
         default:
             return state
     }
@@ -81,6 +85,12 @@ export type toggleFethingActionType = {
     isFetching: boolean
 }
 
+export type toggleDisableUserType = {
+    type: 'TOGGLE_DISABLED_USER',
+    userId: number,
+    isFollowing: boolean
+}
+
 export const toggleIsFetching = (isFetching: boolean): toggleFethingActionType => ({
     type: 'TOGGLE_FETHING',
     isFetching
@@ -108,4 +118,10 @@ export const setCurrentPage = (newCurrentPage: number): setCurrentPageActionType
 export const setTotalUsersCount = (totalCount: number): setTotalUsersCountActionType => ({
     type: 'SET_TOTAL_USERS_COUNT',
     totalCount
+})
+
+export const toggleDisableUser = (userId: number, isFollowing: boolean): toggleDisableUserType => ({
+    type: 'TOGGLE_DISABLED_USER',
+    userId,
+    isFollowing
 })

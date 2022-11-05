@@ -11,17 +11,19 @@ import {
     followActionType,
     reducerUsers,
     setCurrentPageActionType, setTotalUsersCountActionType,
-    setUsersActionType, toggleFethingActionType,
+    setUsersActionType, toggleDisableUserType, toggleFethingActionType,
     unfollowActionType,
     UsersPageType
 } from "./reducerUsers";
+import {reducerAuth} from "./authReducer";
 
 
 const reducers = combineReducers({
     profilePage: reducerProfile,
     dialogsPage: reducerDialogs,
     usersPage: reducerUsers,
-    sideBar: reducerSideBar
+    sideBar: reducerSideBar,
+    auth: reducerAuth
 })
 
 
@@ -103,6 +105,7 @@ export type ActionType =
     | setTotalUsersCountActionType
     | toggleFethingActionType
     | SetUserProfileActionActionType
+    | toggleDisableUserType
 
 
 

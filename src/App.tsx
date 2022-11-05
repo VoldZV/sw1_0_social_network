@@ -17,6 +17,7 @@ import ConnectUsers from "./component/Users/UsersContainer";
 import {
     ProfileWithRouter
 } from "./component/Profile/ProfileContainerClass";
+import HeaderContainer from "./component/Header/HeaderContainer";
 
 
 
@@ -26,7 +27,7 @@ export const App = () => {
 
     return (
         <div className='app-wrapper'>
-            <Header/>
+            <HeaderContainer/>
             <Navbar sidebar={store.getState().sideBar}/>
             <div className="app-wrapper-appContent">
                 <Route path='/profile/:userId?'

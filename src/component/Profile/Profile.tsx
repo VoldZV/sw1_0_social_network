@@ -13,7 +13,7 @@ export const Profile = (props: ProfilePropsType) => {
             <ProfileInfo avatar={props.profilePage.profile?.photos.large}/>
             <CreatePost addPost={props.addPost}
                         textAriaPostValue={props.profilePage.textAriaPostValue}
-                        onChangeTextAria={props.onChangeTextAria}
+                        onChangeTextAria={props.changePost}
             />
             <Posts posts={props.profilePage.postsData}/>
         </div>

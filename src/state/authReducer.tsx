@@ -1,3 +1,7 @@
+import {store} from "./store-redux";
+import axios from "axios";
+import {authAPI, usersAPI} from "../api/api";
+
 export type initialAuthStateType = {
     userId: null | string
     email: null | string
@@ -13,6 +17,8 @@ const initialAuthState = {
     isAuth: false,
     avatar: null
 }
+
+type AuthActionsType = ReturnType<typeof setAuthUserData> | ReturnType<typeof setLogAva> | ReturnType<typeof logOut>
 
 export const reducerAuth = (state: initialAuthStateType = initialAuthState, action: AuthActionsType): initialAuthStateType => {
     switch (action.type) {
@@ -58,4 +64,30 @@ export const logOut = () => ({
     type: 'LOG-OUT',
 } as const)
 
-type AuthActionsType = ReturnType<typeof setAuthUserData> | ReturnType<typeof setLogAva> | ReturnType<typeof logOut>
+
+// thunk creator
+
+export const authUser = () => {
+    return (dispatch: typeof store.dispatch) => {
+        authAPI.authUser()
+        .then(response => {
+                if (response.data.resultCode === 0) {
+                    let {id, email, login} = response.data.data
+                    dispatch(setAuthUserData(id, email, login))
+                    return id
+                }
+            })
+            .then(id => {
+                axios.get(`https://social-network.samuraijs.com/api/1.0/profile/` + id)
+                    .then(response => {
+                        dispatch(setLogAva(response.data.photos.small))
+                    })
+                    .catch(err => console.log('Header, set ava of auth account', err))
+            })
+            .catch(err => console.log('In header', err))
+
+    }
+}
+
+
+

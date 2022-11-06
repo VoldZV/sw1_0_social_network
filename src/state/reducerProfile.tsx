@@ -1,5 +1,7 @@
 import React from 'react';
-import {ActionType, PostType} from "./store-redux";
+import {ActionType, PostType, store} from "./store-redux";
+import axios from "axios";
+import {usersAPI} from "../api/api";
 
 export type ProfilePageType = {
     postsData: Array<PostType>
@@ -79,20 +81,34 @@ export type SetUserProfileActionActionType = {
 }
 // пока оставил 2 варианта типизации функций взаимосвязанное с типом action - возвращаемое значение как константа
 // тогда можно не указывать тип и непосредственно указанный тип возвращаемого значения
-export const addPostActionCreator = (postText: string): addPostTextActionType => ({
+export const addPost = (postText: string): addPostTextActionType => ({
     type: 'ADD-POST-TEXT',
     postText: postText
 })
-export const changePostActionCreator = (postText: string) : ChangePostTextActionType => {
+export const changePost = (postText: string) : ChangePostTextActionType => {
     return {
         type: 'CHANGE-POST-TEXT',
         postText: postText
     }
 }
 
-export const setUserProfileActionCreator = (profile: ProfileType) : SetUserProfileActionActionType => {
+export const setUserProfile = (profile: ProfileType) : SetUserProfileActionActionType => {
     return {
         type: 'SET-USER-PROFILE',
         profile
     }
 }
+
+
+//thunk creator
+export const setUserProfileTH = (userId: string) => {
+    return (dispatch: typeof store.dispatch) => {
+        usersAPI.setUserProfile(userId)
+            .then(data => {
+                dispatch(setUserProfile(data))
+            })
+            .catch(err => console.log(`In Profile did mount ${userId}`, err))
+    }
+}
+
+

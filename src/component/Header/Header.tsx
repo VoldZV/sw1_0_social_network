@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from "react";
 import h from './Header.module.css'
-import {initialAuthStateType} from "../../state/authReducer";
 import {HeaderPropsType} from "./HeaderContainer";
 import {NavLink} from "react-router-dom";
 

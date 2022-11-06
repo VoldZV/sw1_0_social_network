@@ -1,5 +1,6 @@
 import React from 'react';
-import {ActionType} from "./store-redux";
+import {ActionType, store} from "./store-redux";
+import {usersAPI} from "../api/api";
 
 export type UsersPageType = {
     users: Array<UserType>
@@ -125,3 +126,46 @@ export const toggleDisableUser = (userId: number, isFollowing: boolean): toggleD
     userId,
     isFollowing
 })
+
+
+
+// thunks Creators
+export const getUsers = (currentPage: number, pageSize: number) => {
+    return (dispatch: typeof store.dispatch) => {
+        dispatch(toggleIsFetching(true))
+        dispatch(setCurrentPage(currentPage))
+        usersAPI.getUsers(currentPage, pageSize)
+            .then(data => {
+                dispatch(setTotalUsersCount(data.totalCount))
+                dispatch(setUsers(data.items))
+                dispatch(toggleIsFetching(false))
+            })
+            .catch(err => console.log('In Users DID MOUNT', err))
+    }
+}
+
+export const unfollowUser = (userId: number) => {
+    return (dispatch: typeof store.dispatch) => {
+        dispatch(toggleDisableUser(userId, true))
+        usersAPI.unfollowUser(userId).then(data => {
+            if (data.resultCode == 0) {
+                dispatch(unfollow(userId))
+            }
+            dispatch(toggleDisableUser(userId, false))
+        })
+            .catch(err => console.log('Try unfollowUser', err))
+    }
+}
+
+export const followUser = (userId: number) => {
+    return (dispatch: typeof store.dispatch) => {
+        dispatch(toggleDisableUser(userId, true))
+        usersAPI.followUser(userId).then(data => {
+            if (data.resultCode == 0) {
+                dispatch(follow(userId))
+            }
+            dispatch(toggleDisableUser(userId, false))
+        })
+            .catch(err => console.log('Try followUser', err))
+    }
+}

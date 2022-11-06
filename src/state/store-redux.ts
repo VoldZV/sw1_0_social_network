@@ -6,7 +6,7 @@ import {
 } from "./reducerProfile";
 import {AddMessageTextActionType, ChangeMessageTextActionType, reducerDialogs} from "./reducerDialogs";
 import {reducerSideBar} from "./reducerSideBar";
-import {combineReducers, legacy_createStore, Store} from "redux";
+import {applyMiddleware, combineReducers, legacy_createStore, Store} from "redux";
 import {
     followActionType,
     reducerUsers,
@@ -16,6 +16,7 @@ import {
     UsersPageType
 } from "./reducerUsers";
 import {reducerAuth} from "./authReducer";
+import thunk from "redux-thunk";
 
 
 const reducers = combineReducers({
@@ -34,7 +35,7 @@ const reducers = combineReducers({
 // и обычным образом, т.е. StateType в DialogsContainer
 export type AppStateType = ReturnType<typeof reducers>
 
-export const store: Store<ReturnType<typeof reducers>> = legacy_createStore(reducers)
+export const store: Store<ReturnType<typeof reducers>> = legacy_createStore(reducers, applyMiddleware(thunk))
 
 // @ts-ignore
 window.store = store

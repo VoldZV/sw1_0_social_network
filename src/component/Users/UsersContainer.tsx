@@ -1,44 +1,24 @@
 import React from "react";
 import {
-    follow, setCurrentPage, setTotalUsersCount, setUsers, toggleDisableUser, toggleIsFetching, unfollow,
+    follow, followUser, getUsers, setCurrentPage, toggleDisableUser, unfollow, unfollowUser,
     UsersPageType,
-    UserType
 } from "../../state/reducerUsers";
 import {AppStateType} from "../../state/store-redux";
 import {connect} from "react-redux";
 import {Users} from "./Users";
 import {Preloader} from "../common/Preloader";
-import {usersAPI} from "../../api/api";
 
 
 export class UsersContainer extends React.Component<UsersContainerPropsType, UsersPageType> {
     constructor(props: UsersContainerPropsType) {
         super(props);
     }
-
     componentDidMount() {
-        this.props.toggleIsFetching(true)
-        usersAPI.getUsers(this.props.usersPage.currentPage, this.props.usersPage.pageSize)
-            .then(data => {
-                this.props.setTotalUsersCount(data.totalCount)
-                this.props.setUsers(data.items)
-                this.props.toggleIsFetching(false)
-            })
-            .catch(err => console.log('In Users DID MOUNT', err))
+        this.props.getUsers(this.props.usersPage.currentPage,this.props.usersPage.pageSize)
     }
-
     onPageChange = (p: number) => {
-        this.props.toggleIsFetching(true)
-        this.props.setCurrentPage(p)
-        usersAPI.getUsers(p, this.props.usersPage.pageSize)
-            .then(data => {
-                this.props.setUsers(data.items)
-                this.props.toggleIsFetching(false)
-            })
-            .catch(err => console.log('In Users change page', err))
-
+        this.props.getUsers(p,this.props.usersPage.pageSize)
     }
-
 
     render = () => {
         return (
@@ -52,8 +32,8 @@ export class UsersContainer extends React.Component<UsersContainerPropsType, Use
                            pageSize={this.props.usersPage.pageSize}
                            currentPage={this.props.usersPage.currentPage}
                            disabledUsers={this.props.usersPage.disabledUsers}
-                           follow={this.props.follow}
-                           unfollow={this.props.unfollow}
+                           follow={this.props.followUser}
+                           unfollow={this.props.unfollowUser}
                            toggleDisableUser={this.props.toggleDisableUser}
                            onPageChange={this.onPageChange}
                     />
@@ -70,13 +50,11 @@ type mapStateToPropsType = {
 }
 
 type mapDispatchToPropsType = {
-    follow: (userId: number) => void
-    unfollow: (userId: number) => void
-    setUsers: (users: Array<UserType>) => void
+    followUser: (userId: number) => void
     setCurrentPage: (newCurrentPage: number) => void
-    setTotalUsersCount: (totalCount: number) => void
-    toggleIsFetching: (isFetching: boolean) => void
     toggleDisableUser: (userId: number, isFollowing: boolean) => void
+    getUsers: (currentPage: number, pageSize: number) => void
+    unfollowUser: (userId: number) => void
 }
 
 export type UsersContainerPropsType = mapStateToPropsType & mapDispatchToPropsType
@@ -88,15 +66,15 @@ const mapStateToProps = (state: AppStateType): mapStateToPropsType => {
 }
 
 export default connect(mapStateToProps, {
-    follow,
-    unfollow,
-    setUsers,
     setCurrentPage,
-    setTotalUsersCount,
-    toggleIsFetching,
-    toggleDisableUser
+    toggleDisableUser,
+    getUsers,
+    unfollowUser,
+    followUser
 })(UsersContainer)
 
+
+// mapDispatchToProps полный синтаксис (кол-во ф-ций может отличаться от текущего)
 // const mapDispatchToProps = (dispatch: Dispatch): mapDispatchToPropsType => {
 //     return {
 //         follow: (userId: number) => {

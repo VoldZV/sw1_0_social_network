@@ -8,6 +8,8 @@ import {
 } from "../../state/reducerProfile";
 import {connect} from "react-redux";
 import {RouteComponentProps, withRouter} from "react-router-dom";
+import {WithAuthRedirect} from "../../HOC/WithAuthRedirect";
+import {compose} from "redux";
 
 
 class ProfileContainerClass extends React.Component<PropsProfType, ProfilePageType> {
@@ -29,6 +31,7 @@ class ProfileContainerClass extends React.Component<PropsProfType, ProfilePageTy
 
 type mapStateToPropsType = {
     profilePage: ProfilePageType
+    // isAuth: boolean
 }
 
 type mapDispatchToPropsType = {
@@ -42,6 +45,7 @@ export type ProfilePropsType = mapStateToPropsType & mapDispatchToPropsType
 const mapStateToProps = (state: AppStateType): mapStateToPropsType => {
     return {
         profilePage: state.profilePage,
+        // isAuth: state.auth.isAuth
     }
 }
 
@@ -50,14 +54,24 @@ type ParamsType = {
 }
 type PropsProfType = RouteComponentProps<ParamsType> & ProfilePropsType
 
-const ProfileContainerClassConnect = connect(mapStateToProps, {
-    addPost,
-    changePost,
-    setUserProfile: setUserProfileTH
-})(ProfileContainerClass)
+// const ProfileContainerClassConnect = connect(mapStateToProps, {
+//     addPost,
+//     changePost,
+//     setUserProfile: setUserProfileTH
+// })(ProfileContainerClass)
 
-export const ProfileWithRouter = withRouter(ProfileContainerClassConnect)
+// export const ProfileWithAuthRedirect = WithAuthRedirect(withRouter(ProfileContainerClassConnect))
 
+
+export const ProfileCompose = compose<React.ComponentType>(
+    connect(mapStateToProps, {
+        addPost,
+        changePost,
+        setUserProfile: setUserProfileTH
+    }),
+    withRouter,
+    WithAuthRedirect
+)(ProfileContainerClass)
 
 // const mapDispatchToProps = (dispatch: Dispatch): mapDispatchToPropsType => {
 //     return {

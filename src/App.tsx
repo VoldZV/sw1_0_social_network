@@ -1,23 +1,16 @@
 import React from 'react';
 import './App.css';
-import {Header} from "./component/Header/Header";
 import {Navbar} from "./component/Navbar/Navbar";
-import {Profile} from "./component/Profile/Profile";
-import {Dialogs} from './component/Dialogs/Dialogs'
 import {Route} from "react-router-dom";
 import {News} from "./component/News/News";
 import {Music} from "./component/Music/Music";
 import {Settings} from "./component/Settings/Setting";
 import {DialogsContainer} from "./component/Dialogs/DialogsContainer";
-import {ProfileContainer} from "./component/Profile/ProfileContainer";
 import {store} from "./state/store-redux";
-import {Users} from "./component/Users/Users";
-import {UsersContainer} from "./component/Users/UsersContainer";
 import ConnectUsers from "./component/Users/UsersContainer";
-import {
-    ProfileWithRouter
-} from "./component/Profile/ProfileContainerClass";
+import { ProfileCompose } from "./component/Profile/ProfileContainerClass";
 import HeaderContainer from "./component/Header/HeaderContainer";
+import Login from "./component/Login";
 
 
 
@@ -31,7 +24,7 @@ export const App = () => {
             <Navbar sidebar={store.getState().sideBar}/>
             <div className="app-wrapper-appContent">
                 <Route path='/profile/:userId?'
-                       render={() => <ProfileWithRouter/>}
+                       render={() => <ProfileCompose/>}
                 />
                 <Route path='/dialogs'
                        render={() => <DialogsContainer/>}
@@ -42,6 +35,7 @@ export const App = () => {
                 <Route path='/news' component={News}/>
                 <Route path='/music' component={Music}/>
                 <Route path='/settings' component={Settings}/>
+                <Route path='/login' component={Login}/>
                 {/*<Dialogs />*/}
                 {/*<Profile />*/}
             </div>

@@ -7,12 +7,15 @@ import {
 } from "../../state/store-redux";
 import CrPost from "../Profile/Posts/CreatePost/CreatePost.module.css";
 import {DialogsPropsType} from "./DialogsContainer";
+import {Redirect} from "react-router-dom";
 
 
 
 
 
 export const Dialogs = (props: DialogsPropsType) => {
+
+    // if(!props.isAuth) return <Redirect to={'/login'}/>
 
     const addRefMessage: RefObject<HTMLTextAreaElement> = React.createRef()
 

@@ -1,27 +1,51 @@
 import React, {ChangeEvent} from 'react';
 
-export class ProfileStatus extends React.Component<any, any> {
-    state = {
+type ProfileStatusType = {
+    status: string
+    changeStatus: (status: string) => void
+}
+
+type ProfileStatusStateType = {
+    editMode: boolean
+    inputStatus: string
+}
+
+export class ProfileStatus extends React.Component<ProfileStatusType, ProfileStatusStateType> {
+    state: ProfileStatusStateType = {
         editMode: false,
-        status: 'Hello'
+        inputStatus: this.props.status
     };
 
     changeEditmode = () => {
         this.setState({...this.state, editMode: !this.state.editMode})
     };
 
-    changeStatus = (e: ChangeEvent<HTMLInputElement>) => {
-        this.setState({...this.state, status: e.currentTarget.value})
+    onChangeStatus = (e: ChangeEvent<HTMLInputElement>) => {
+        this.setState({...this.state, inputStatus: e.currentTarget.value})
     }
+
+    onBlurHandler = (e: ChangeEvent<HTMLInputElement>) => {
+        debugger
+        this.changeEditmode()
+        this.props.changeStatus(this.state.inputStatus)
+    }
+
+    componentDidUpdate(prevProps: Readonly<ProfileStatusType>, prevState: Readonly<ProfileStatusStateType>) {
+        if(prevProps.status !== this.props.status) {
+            this.setState({...this.state, inputStatus: this.props.status})
+        }
+    }
+
+
 
     render() {
         return (
             <div>
-                <div>
-                    {!this.state.editMode && <span onDoubleClick={this.changeEditmode}>{this.state.status}</span>}
+                <div style={{height:'20px', width:'150px', backgroundColor:'blue'}}>
+                    {!this.state.editMode && <span onDoubleClick={this.changeEditmode}>{this.props.status}</span>}
                 </div>
-                <div>
-                    {this.state.editMode && <input onChange={this.changeStatus} autoFocus={true} onBlur={this.changeEditmode} value={this.state.status}/>}
+                <div style={{height:'20px', width:'150px', backgroundColor:'green'}}>
+                    {this.state.editMode && <input onChange={this.onChangeStatus} autoFocus={true} onBlur={this.onBlurHandler} value={this.state.inputStatus}/>}
                 </div>
             </div>
         )

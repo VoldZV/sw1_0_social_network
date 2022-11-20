@@ -29,10 +29,27 @@ export const usersAPI = {
     },
 
     setUserProfile (userId: string) { // для запроса отображения фото юзера в компоненте Profile
+        console.error('This method will be updated in profileAPI')
+        return profileAPI.setUserProfile(userId)
+    },
+
+}
+
+export const profileAPI = {
+    setUserProfile (userId: string) {
         return instance.get(`profile/${userId}`)
             .then(data => data.data)
     },
 
+    getStatus (userId: string) {
+        debugger
+        return instance.get(`profile/status/${userId}`)
+            .then(data => data.data)
+    },
+    updateStatus (status: string) {
+        return instance.put(`profile/status`, {status})
+            .then(data => data.data)
+    },
 }
 
 export const authAPI = {

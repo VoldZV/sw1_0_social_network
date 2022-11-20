@@ -1,12 +1,13 @@
 import React from 'react';
 import {ActionType, PostType, store} from "./store-redux";
 import axios from "axios";
-import {usersAPI} from "../api/api";
+import {profileAPI, usersAPI} from "../api/api";
 
 export type ProfilePageType = {
     postsData: Array<PostType>
     textAriaPostValue: string
     profile: ProfileType | null
+    status: string
 }
 
 export type ProfileType = {
@@ -41,7 +42,8 @@ const initialProfileState: ProfilePageType = {
         {id: '3', message: 'Hi, my name is Frank', likesCount: 11},
     ],
     textAriaPostValue: '',
-    profile: null
+    profile: null,
+    status: ''
 }
 
 
@@ -51,6 +53,10 @@ export const reducerProfile = (state:ProfilePageType = initialProfileState, acti
             return {...state, textAriaPostValue: action.postText }
         case 'SET-USER-PROFILE':
             return {...state, profile: action.profile }
+        case 'SET-STATUS':
+            return {...state, status: action.status }
+        case 'CHANGE-STATUS':
+            return {...state, status: action.status }
         case  'ADD-POST-TEXT':
             return {
                 ...state,
@@ -79,6 +85,14 @@ export type SetUserProfileActionActionType = {
     type: 'SET-USER-PROFILE'
     profile: ProfileType
 }
+export type setStatusActionType = {
+    type: 'SET-STATUS'
+    status: string
+}
+export type changeStatusActionType = {
+    type: 'CHANGE-STATUS'
+    status: string
+}
 // пока оставил 2 варианта типизации функций взаимосвязанное с типом action - возвращаемое значение как константа
 // тогда можно не указывать тип и непосредственно указанный тип возвращаемого значения
 export const addPost = (postText: string): addPostTextActionType => ({
@@ -99,6 +113,19 @@ export const setUserProfile = (profile: ProfileType) : SetUserProfileActionActio
     }
 }
 
+export const setStatusAC = (status: string) : setStatusActionType => {
+    return {
+        type: 'SET-STATUS',
+        status
+    }
+}
+export const changeStatusAC = (status: string) : changeStatusActionType => {
+    return {
+        type: 'CHANGE-STATUS',
+        status
+    }
+}
+
 
 //thunk creator
 export const setUserProfileTH = (userId: string) => {
@@ -108,6 +135,32 @@ export const setUserProfileTH = (userId: string) => {
                 dispatch(setUserProfile(data))
             })
             .catch(err => console.log(`In Profile did mount ${userId}`, err))
+    }
+}
+
+
+
+export const setStatus = (id: string) => {
+    debugger
+    return (dispatch: typeof store.dispatch) => {
+        profileAPI.getStatus(id)
+            .then(data => {
+                debugger
+                console.log('get Status is  ', data)
+                dispatch(setStatusAC(data))
+            })
+            .catch(err => console.log(`Try change status, but error`, err))
+    }
+}
+
+export const changeStatus = (status: string) => {
+    return (dispatch: typeof store.dispatch) => {
+        profileAPI.updateStatus(status)
+            .then(data => {
+                console.log('change Status is  ', data)
+                if(data.resultCode === 0) dispatch(changeStatusAC(status))
+            })
+            .catch(err => console.log(`Try change status, but error`, err))
     }
 }
 

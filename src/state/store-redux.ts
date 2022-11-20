@@ -1,7 +1,7 @@
 import {
     addPostTextActionType,
-    ChangePostTextActionType, ProfilePageType,
-    reducerProfile,
+    ChangePostTextActionType, changeStatusActionType, ProfilePageType,
+    reducerProfile, setStatusAC, setStatusActionType,
     SetUserProfileActionActionType
 } from "./reducerProfile";
 import {AddMessageTextActionType, ChangeMessageTextActionType, reducerDialogs} from "./reducerDialogs";
@@ -17,6 +17,7 @@ import {
 } from "./reducerUsers";
 import {reducerAuth} from "./authReducer";
 import thunk from "redux-thunk";
+import {reducer as formReducer} from "redux-form";
 
 
 const reducers = combineReducers({
@@ -24,7 +25,8 @@ const reducers = combineReducers({
     dialogsPage: reducerDialogs,
     usersPage: reducerUsers,
     sideBar: reducerSideBar,
-    auth: reducerAuth
+    auth: reducerAuth,
+    form: formReducer
 })
 
 
@@ -39,8 +41,6 @@ export const store: Store<ReturnType<typeof reducers>> = legacy_createStore(redu
 
 // @ts-ignore
 window.store = store
-
-
 
 
 // Типизация, объединяющая все страницы
@@ -107,6 +107,8 @@ export type ActionType =
     | toggleFethingActionType
     | SetUserProfileActionActionType
     | toggleDisableUserType
+    | changeStatusActionType
+    | setStatusActionType
 
 
 

@@ -10,7 +10,10 @@ export const Profile = (props: ProfilePropsType) => {
 
     return (
         <div className={p.appContent}>
-            <ProfileInfo avatar={props.profilePage.profile?.photos.large}/>
+            <ProfileInfo avatar={props.profilePage.profile?.photos.large}
+                        status={props.status}
+                         changeStatus={props.changeStatus}
+            />
             <CreatePost addPost={props.addPost}
                         textAriaPostValue={props.profilePage.textAriaPostValue}
                         onChangeTextAria={props.changePost}

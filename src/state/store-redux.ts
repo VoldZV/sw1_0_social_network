@@ -56,7 +56,7 @@ export type StateType = {
 export type DialogsPageType = {
     dialogsData: Array<DialogDataType>
     messagesData: Array<MessageType>
-    textAriaMessageValue: string
+    // textAriaMessageValue: string
 }
 
 export type DialogDataType = {

@@ -8,23 +8,14 @@ import {
 import CrPost from "../Profile/Posts/CreatePost/CreatePost.module.css";
 import {DialogsPropsType} from "./DialogsContainer";
 import {Redirect} from "react-router-dom";
-
-
-
+import {Field, reduxForm} from "redux-form";
+import {InjectedFormProps} from "redux-form/lib/reduxForm";
 
 
 export const Dialogs = (props: DialogsPropsType) => {
 
-    // if(!props.isAuth) return <Redirect to={'/login'}/>
-
-    const addRefMessage: RefObject<HTMLTextAreaElement> = React.createRef()
-
-    const onChangeTextAriaHandler = function (e: ChangeEvent<HTMLTextAreaElement>) {
-        props.onChangeTextAria(e.currentTarget.value)
-    }
-
-    const addMessageHandler = () => {
-        if (props.textAriaMessageValue.trim()) props.addMessage(props.textAriaMessageValue)
+    const addMessageHandler = (formData: DialogsFormType) => {
+        if (formData.dialogsMessage.trim()) props.addMessage(formData.dialogsMessage)
     }
 
     return (
@@ -38,22 +29,28 @@ export const Dialogs = (props: DialogsPropsType) => {
                 {props.dialogsPage.messagesData.map((message, i) => {
                     return <Message key={i} id={message.id} message={message.message}/>
                 })}
-                <div>
-                    <textarea onChange={onChangeTextAriaHandler} value={props.textAriaMessageValue}
-                              ref={addRefMessage}/>
-                    <div>
-                        <button onClick={addMessageHandler} className={CrPost.buttons}>send</button>
-                        <button className={CrPost.buttons}>clear</button>
-                    </div>
-                </div>
+                <ReduxDialogsForm onSubmit={addMessageHandler}/>
             </div>
         </div>
     )
 }
 
+type DialogsFormType = {
+    dialogsMessage: string
+}
 
+const DialogsForm = (props: InjectedFormProps<DialogsFormType>) => {
+    return (
+        <form onSubmit={props.handleSubmit}>
+            <Field name={'dialogsMessage'} component={'textarea'}/>
+            <div>
+                <button className={CrPost.buttons}>send</button>
+            </div>
+        </form>
+    )
+}
 
-
+const ReduxDialogsForm = reduxForm<DialogsFormType>({form: 'reduxDialogsForm'})(DialogsForm)
 
 
 

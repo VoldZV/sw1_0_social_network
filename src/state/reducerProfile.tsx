@@ -5,7 +5,6 @@ import {profileAPI, usersAPI} from "../api/api";
 
 export type ProfilePageType = {
     postsData: Array<PostType>
-    textAriaPostValue: string
     profile: ProfileType | null
     status: string
 }
@@ -41,7 +40,6 @@ const initialProfileState: ProfilePageType = {
         {id: '2', message: 'Oh, very glad to see you', likesCount: 2},
         {id: '3', message: 'Hi, my name is Frank', likesCount: 11},
     ],
-    textAriaPostValue: '',
     profile: null,
     status: ''
 }
@@ -49,8 +47,7 @@ const initialProfileState: ProfilePageType = {
 
 export const reducerProfile = (state:ProfilePageType = initialProfileState, action: ActionType) : ProfilePageType => {
     switch (action.type) {
-        case 'CHANGE-POST-TEXT':
-            return {...state, textAriaPostValue: action.postText }
+
         case 'SET-USER-PROFILE':
             return {...state, profile: action.profile }
         case 'SET-STATUS':
@@ -62,10 +59,10 @@ export const reducerProfile = (state:ProfilePageType = initialProfileState, acti
                 ...state,
                 postsData: [...state.postsData, {
                     id: '4',
-                    message: state.textAriaPostValue,
+                    message: action.postText,
                     likesCount: 0
                 }],
-                textAriaPostValue: ''
+
             }
         default:
             return state
@@ -99,12 +96,7 @@ export const addPost = (postText: string): addPostTextActionType => ({
     type: 'ADD-POST-TEXT',
     postText: postText
 })
-export const changePost = (postText: string) : ChangePostTextActionType => {
-    return {
-        type: 'CHANGE-POST-TEXT',
-        postText: postText
-    }
-}
+
 
 export const setUserProfile = (profile: ProfileType) : SetUserProfileActionActionType => {
     return {
@@ -141,11 +133,9 @@ export const setUserProfileTH = (userId: string) => {
 
 
 export const setStatus = (id: string) => {
-    debugger
     return (dispatch: typeof store.dispatch) => {
         profileAPI.getStatus(id)
             .then(data => {
-                debugger
                 console.log('get Status is  ', data)
                 dispatch(setStatusAC(data))
             })

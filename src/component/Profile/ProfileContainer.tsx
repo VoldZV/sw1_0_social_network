@@ -1,7 +1,7 @@
 import React from "react";
 import {AppStateType} from "../../state/store-redux";
 import {Profile} from "./Profile";
-import {addPost, changePost, ProfilePageType} from "../../state/reducerProfile";
+import {addPost, ProfilePageType} from "../../state/reducerProfile";
 import {connect} from "react-redux";
 import {Dispatch} from "redux";
 
@@ -32,7 +32,6 @@ type mapStateToPropsType = {
 
 type mapDispatchToPropsType = {
     addPost: (postText: string) => void
-    onChangeTextAria: (postText: string) => void
 }
 
 export type ProfilePropsType = mapStateToPropsType & mapDispatchToPropsType
@@ -48,10 +47,6 @@ const mapDispatchToProps = (dispatch: Dispatch) : mapDispatchToPropsType => {
     return {
         addPost: (postText: string) => {
             const action = addPost(postText)
-            dispatch(action)
-        },
-        onChangeTextAria: (postText: string) => {
-            const action = changePost(postText)
             dispatch(action)
         }
     }

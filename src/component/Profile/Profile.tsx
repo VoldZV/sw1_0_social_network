@@ -15,7 +15,6 @@ export const Profile = (props: ProfilePropsType) => {
                          changeStatus={props.changeStatus}
             />
             <CreatePost addPost={props.addPost}
-                        textAriaPostValue={props.profilePage.textAriaPostValue}
                         onChangeTextAria={props.changePost}
             />
             <Posts posts={props.profilePage.postsData}/>

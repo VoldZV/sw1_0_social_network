@@ -3,7 +3,7 @@ import {Profile} from "./Profile";
 import {AppStateType} from "../../state/store-redux";
 import {
     addPost,
-    changePost, changeStatus, ProfilePageType, ProfileType, setStatus,
+    changeStatus, ProfilePageType, ProfileType, setStatus,
     setUserProfile, setUserProfileTH,
 } from "../../state/reducerProfile";
 import {connect} from "react-redux";
@@ -15,7 +15,6 @@ import {compose} from "redux";
 class ProfileContainerClass extends React.Component<PropsProfType, ProfilePageType> {
 
     componentDidMount() {
-        debugger
         let userId = this.props.match.params.userId
         if (!userId) userId = '25871'
         this.props.setUserProfile(userId)
@@ -72,7 +71,6 @@ type PropsProfType = RouteComponentProps<ParamsType> & ProfilePropsType
 export const ProfileCompose = compose<React.ComponentType>(
     connect(mapStateToProps, {
         addPost,
-        changePost,
         setUserProfile: setUserProfileTH,
         setStatus,
         changeStatus

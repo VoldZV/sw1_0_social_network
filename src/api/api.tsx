@@ -42,7 +42,6 @@ export const profileAPI = {
     },
 
     getStatus (userId: string) {
-        debugger
         return instance.get(`profile/status/${userId}`)
             .then(data => data.data)
     },

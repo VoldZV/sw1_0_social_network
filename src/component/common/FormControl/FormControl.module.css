@@ -1,0 +1,10 @@
+.errorInput {
+    border: 3px solid red;
+    background-color: rgba(204, 12, 12, 0.3);
+}
+
+.formSummaryError {
+    border: 2px solid red;
+    color: red
+}
+

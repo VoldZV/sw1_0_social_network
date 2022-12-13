@@ -10,6 +10,8 @@ import {DialogsPropsType} from "./DialogsContainer";
 import {Redirect} from "react-router-dom";
 import {Field, reduxForm} from "redux-form";
 import {InjectedFormProps} from "redux-form/lib/reduxForm";
+import {MyTextField} from "../common/FormControl/FormControl";
+import {maxLengthCreator, required} from "../../utils/validators/validators";
 
 
 export const Dialogs = (props: DialogsPropsType) => {
@@ -39,10 +41,15 @@ type DialogsFormType = {
     dialogsMessage: string
 }
 
+
+const maxLengthValidator = maxLengthCreator(20)
+
 const DialogsForm = (props: InjectedFormProps<DialogsFormType>) => {
     return (
         <form onSubmit={props.handleSubmit}>
-            <Field name={'dialogsMessage'} component={'textarea'}/>
+            <Field formType={'textarea'} component={MyTextField} name={'dialogsMessage'}
+                   placeholder={'enter message text'}  validate={[required, maxLengthValidator]}
+            />
             <div>
                 <button className={CrPost.buttons}>send</button>
             </div>

@@ -16,7 +16,8 @@ class ProfileContainerClass extends React.Component<PropsProfType, ProfilePageTy
 
     componentDidMount() {
         let userId = this.props.match.params.userId
-        if (!userId) userId = '25871'
+        // if (!userId) userId = '25871'
+        if (!userId && this.props.authorizedId) userId = this.props.authorizedId
         this.props.setUserProfile(userId)
         this.props.setStatus(userId)
     }
@@ -33,7 +34,8 @@ class ProfileContainerClass extends React.Component<PropsProfType, ProfilePageTy
 type mapStateToPropsType = {
     profilePage: ProfilePageType
     status: string
-    // isAuth: boolean
+    isAuth: boolean
+    authorizedId: string | null
 }
 
 type mapDispatchToPropsType = {
@@ -49,8 +51,9 @@ export type ProfilePropsType = mapStateToPropsType & mapDispatchToPropsType
 const mapStateToProps = (state: AppStateType): mapStateToPropsType => {
     return {
         profilePage: state.profilePage,
-        status: state.profilePage.status
-        // isAuth: state.auth.isAuth
+        status: state.profilePage.status,
+        authorizedId: state.auth.userId,
+        isAuth: state.auth.isAuth
     }
 }
 

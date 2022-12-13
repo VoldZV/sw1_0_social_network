@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import h from './Header.module.css'
 import {HeaderPropsType} from "./HeaderContainer";
-import {NavLink} from "react-router-dom";
+import {NavLink, Redirect} from "react-router-dom";
 
 
 
